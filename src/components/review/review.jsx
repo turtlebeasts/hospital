@@ -73,7 +73,7 @@ export default function Review() {
                 }
                 <Divider />
                 {
-                    user.type == 4 ?
+                    user.type == 4 || user.type == 1?
                         <form onSubmit={handleSubmit}>
                             <Typography component="p">
                                 Review Date

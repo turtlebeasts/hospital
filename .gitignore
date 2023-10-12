@@ -14,6 +14,7 @@ dist-ssr
 
 # Editor directories and files
 .authentication
+todo.txt
 .vscode/*
 !.vscode/extensions.json
 .idea

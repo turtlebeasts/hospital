@@ -13,7 +13,7 @@ import Box from "@mui/material/Box"
 import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid"
 import DeleteModal from "../../components/deletemodal/deletemodal"
-import { Hidden, Link as Links } from "@mui/material/"
+import { Hidden, Link as Links, TextField } from "@mui/material/"
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 
@@ -21,6 +21,8 @@ export default function Plist() {
 
   const [data, setData] = React.useState([])
   const [reload, setReload] = React.useState(false)
+  const [search, setSearch] = React.useState('')
+
   React.useEffect(() => {
     async function getData() {
       const response = await fetch("http://localhost/hospital/index.php?get_meds=");
@@ -30,9 +32,22 @@ export default function Plist() {
     }
     getData()
   }, [reload])
+
+  const handleSearch = (e) =>{
+    let searchTerm = e.target.value
+    const result = data.filter(item=>Object.values(item).some(value=>value.toLowerCase().includes(searchTerm)))
+    if(searchTerm===''){
+      setReload(true)
+    }else{
+      setData(result)
+    }
+  }
   return (
     <Box sx={{ padding: 5, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Grid container maxWidth="md">
+        <Grid item xs={12} md={4}>
+          <TextField onChange={handleSearch} label="Search record"/>
+        </Grid>
         <Hidden smDown>
           <TableContainer component={Paper} sx={{ mt: 2 }}>
             <Table size="small" aria-label="a dense table">

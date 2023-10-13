@@ -19,7 +19,7 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const user = JSON.parse(sessionStorage.getItem('user'))
 
-  const pages = user===null?['Home', 'About', 'Medicine', 'Staff', 'Doctors', 'Diet', 'SignIn']:['Home', 'MedicineForm', 'Plist'];
+  const pages = user===null?['Home', 'About', 'Medicine', 'Staff', 'SignIn']:['Home', 'MedicineForm', 'Plist'];
   // const settings = ['Profile', 'Account', 'Dashboard'];
   const settings = ['Profile'];
 

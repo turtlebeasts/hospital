@@ -108,6 +108,7 @@ export default function SignIn() {
               <MenuItem value="2">Doctor (Diagnosis)</MenuItem>
               <MenuItem value="3">Doctor (Medicine)</MenuItem>
               <MenuItem value="4">Reviewer</MenuItem>
+              <MenuItem value="5">Reception</MenuItem>
             </Select>
             <Button
               type="submit"

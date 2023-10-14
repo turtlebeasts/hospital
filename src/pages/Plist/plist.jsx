@@ -14,6 +14,8 @@ import { Link } from "react-router-dom";
 import Grid from "@mui/material/Grid"
 import DeleteModal from "../../components/deletemodal/deletemodal"
 import { Hidden, Link as Links, TextField } from "@mui/material/"
+import VaccinesIcon from '@mui/icons-material/Vaccines';
+import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 
@@ -89,6 +91,7 @@ export default function Plist() {
                                 component={Link}
                                 to={row.patient_ID}
                                 variant="contained"
+                                startIcon={<TroubleshootIcon />}
                               >
                                 Diagnose
                               </Button> : ""
@@ -102,6 +105,7 @@ export default function Plist() {
                                 to={"/prescribe/" + row.patient_ID}
                                 variant="outlined"
                                 size="small"
+                                startIcon={<VaccinesIcon />}
                               >
                                 Prescribe
                               </Button> : ""

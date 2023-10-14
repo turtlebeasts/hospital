@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Homepage from "./pages/home/homepage"
 import Doctors from "./pages/doctors/doctors"
 import Dashboard from "./pages/dashboard/dashboard"
@@ -15,41 +15,57 @@ import Staff from "./pages/staff/staff"
 import SignIn from "./pages/signin/signin"
 import Patient from "./pages/patient/patient"
 import "./App.css"
+import { ThemeProvider, createTheme } from "@mui/material";
+
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#000E28'
+    },
+    info: {
+      main: '#00C9F5'
+    }
+  }
+})
+
 
 function App() {
   const user = sessionStorage.getItem('user')
 
   return (
-    <BrowserRouter>
-      <ResponsiveAppBar/>
-      {
-        user===null?
-        <Routes>
-          <Route path="/" element={<Homepage/>} />
-          <Route path="/home" element={<Homepage/>} />
-          <Route path="/staff" element={<Staff/>} />
-          <Route path="/doctors" element={<Doctors/>} />
-          <Route path="/diet" element={<Diet/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/medicine" element={<Medicine/>} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="*" element={<Notfound/>} />
-        </Routes>
-        :
-        <Routes>
-          <Route path="/" element={<Dashboard/>} />
-          <Route path="/home" element={<Dashboard/>} />
-          <Route exact path="/plist" element={<Plist/>} />
-          <Route exact path="/patient/:id" element={<Patient/>} />
-          <Route path="/plist/:id" element={<DiagHome/>} />
-          <Route path="/prescribe/:id" element={<PrescribeHome />} />
-          <Route path="/medicineform" element={<MedicineForm />} />
-          <Route path="/signin" element={<SignIn />} />
-          <Route path="*" element={<Notfound/>} />
-        </Routes>
-      }
-        
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <ResponsiveAppBar />
+        {
+          user === null ?
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/home" element={<Homepage />} />
+              <Route path="/staff" element={<Staff />} />
+              <Route path="/doctors" element={<Doctors />} />
+              <Route path="/diet" element={<Diet />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/medicine" element={<Medicine />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="*" element={<Notfound />} />
+            </Routes>
+            :
+            <Routes>
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/home" element={<Dashboard />} />
+              <Route exact path="/plist" element={<Plist />} />
+              <Route exact path="/patient/:id" element={<Patient />} />
+              <Route path="/plist/:id" element={<DiagHome />} />
+              <Route path="/prescribe/:id" element={<PrescribeHome />} />
+              <Route path="/medicineform" element={<MedicineForm />} />
+              <Route path="/signin" element={<SignIn />} />
+              <Route path="*" element={<Notfound />} />
+            </Routes>
+        }
+
+      </BrowserRouter>
+    </ThemeProvider>
   )
 }
 

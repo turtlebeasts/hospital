@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 const DeleteConfirmationModal = ({ open, onClose, onConfirm }) => {
   return (
@@ -47,9 +48,9 @@ const DeleteModal = ({ deleteID, reload }) => {
 
   return (
     <div>
-      <Button variant="contained" color="error" onClick={handleDelete}>
-        Delete
-      </Button>
+      <IconButton variant="contained" color="error" onClick={handleDelete}>
+        <DeleteForeverIcon />
+      </IconButton>
 
       <DeleteConfirmationModal
         open={isModalOpen}

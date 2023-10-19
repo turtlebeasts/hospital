@@ -80,14 +80,14 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $email = $mysqli->real_escape_string($email);
     $phone = $mysqli->real_escape_string($phone);
     $address = $mysqli->real_escape_string($address);
-    
+    $gender = $mysqli->real_escape_string($gender);    
     $result = $mysqli->query("SELECT * FROM `patient` WHERE `patient_ID`='$registration'");
 
     if($result->num_rows){
         echo json_encode(200);
         die();
     }
-    $sql = "INSERT INTO `patient`(`patient_ID`, `reg_date`, `first_name`, `middle_name`, `last_name`, `age`, `email`, `phone`, `address`, `cured`) VALUES ('$registration','$reg_date','$firstName','$middleName','$lastName','$age','$email','$phone','$address','0')";
+    $sql = "INSERT INTO `patient`(`patient_ID`, `reg_date`, `first_name`, `middle_name`, `last_name`, `age`, `gender`, `email`, `phone`, `address`, `cured`) VALUES ('$registration','$reg_date','$firstName','$middleName','$lastName','$age','$gender','$email','$phone','$address','0')";
 
     if($mysqli->query($sql)){
         $patient_id= $mysqli->insert_id;

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 12, 2023 at 08:55 PM
+-- Generation Time: Oct 19, 2023 at 10:57 AM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,8 +40,8 @@ CREATE TABLE `diagnosis` (
 --
 
 INSERT INTO `diagnosis` (`diag_ID`, `patient_ID`, `date`, `diagnosis`, `initial_remarks`) VALUES
-(51, '10-12-2023-01', '12/10/2023', 'Nothing found', 'No remarks'),
-(52, '10-12-2023-01', '13/10/2023', 'Not a thing', 'No remarks at all');
+(53, '10-18-2023-01', '18/10/2023', 'Found heavy chillam', 'the patient tried to eat chillam, instead of smoking'),
+(54, '10-18-2023-01', '18/10/2023', 'Diagnosis 2', 'This is the second diagnosis');
 
 -- --------------------------------------------------------
 
@@ -99,7 +99,8 @@ INSERT INTO `login` (`login_ID`, `email`, `password`, `user_type`) VALUES
 (1, 'admin@gmail.com', 'admin123', 1),
 (2, 'diagnose@gmail.com', 'diagnose', 2),
 (3, 'medicine@gmail.com', 'medicine', 3),
-(4, 'review@gmail.com', 'review', 4);
+(4, 'review@gmail.com', 'review', 4),
+(5, 'reception@gmail.com', 'reception', 5);
 
 -- --------------------------------------------------------
 
@@ -166,6 +167,7 @@ CREATE TABLE `patient` (
   `middle_name` varchar(50) NOT NULL,
   `last_name` varchar(50) NOT NULL,
   `age` varchar(10) NOT NULL,
+  `gender` varchar(20) NOT NULL,
   `email` varchar(50) NOT NULL,
   `phone` varchar(12) NOT NULL,
   `address` varchar(100) NOT NULL,
@@ -176,9 +178,8 @@ CREATE TABLE `patient` (
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`patient_ID`, `reg_date`, `first_name`, `middle_name`, `last_name`, `age`, `email`, `phone`, `address`, `cured`) VALUES
-('10-12-2023-01', '12/10/2023', 'Mriganka', '', 'Das', '27', 'mrigz179@gmail.com', '7099597705', 'Barbari Rly Colony', 1),
-('10-12-2023-02', '12/10/2023', 'asdf', '', 'sadf', '90', '', '65464', 'afdasfadsf', 0);
+INSERT INTO `patient` (`patient_ID`, `reg_date`, `first_name`, `middle_name`, `last_name`, `age`, `gender`, `email`, `phone`, `address`, `cured`) VALUES
+('10-18-2023-01', '18/10/2023', 'Someone', '', 'Saf', '78', 'male', 'someone', '1234567890', 'Somewhere', 0);
 
 -- --------------------------------------------------------
 
@@ -212,9 +213,8 @@ CREATE TABLE `prescription` (
 --
 
 INSERT INTO `prescription` (`pres_ID`, `diag_ID`, `medicine_ID`, `water_quantity`, `times_perday`, `instruction`) VALUES
-(39, 51, 2, 1, 1, 'take one per day'),
-(40, 51, 4, 1, 1, 'take 2 per day'),
-(41, 52, 1, 1, 0, 'ata khai dia');
+(42, 53, 2, 1, 1, 'eat this instead'),
+(43, 53, 4, 1, 2, '15 ml consume daily at 10:00 pm');
 
 -- --------------------------------------------------------
 
@@ -235,7 +235,8 @@ CREATE TABLE `reviews` (
 
 INSERT INTO `reviews` (`review_ID`, `review_date`, `review`, `patient_ID`) VALUES
 (16, '13/9/2023', 'The patient is chillin with his babes', '10-12-2023-01'),
-(17, '19/9/2023', 'Hey, he just called me and he want\'s me to come too, one babe fo me.... wohooo', '10-12-2023-01');
+(17, '19/9/2023', 'Hey, he just called me and he want\'s me to come too, one babe fo me.... wohooo', '10-12-2023-01'),
+(20, '13/9/2023', 'adsfasd fa', '10-12-2023-01');
 
 --
 -- Indexes for dumped tables
@@ -314,7 +315,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `diagnosis`
 --
 ALTER TABLE `diagnosis`
-  MODIFY `diag_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `diag_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `dosage_form`
@@ -332,7 +333,7 @@ ALTER TABLE `guardian`
 -- AUTO_INCREMENT for table `login`
 --
 ALTER TABLE `login`
-  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `login_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `manufacturer`
@@ -356,13 +357,13 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `prescription`
 --
 ALTER TABLE `prescription`
-  MODIFY `pres_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `pres_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `review_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

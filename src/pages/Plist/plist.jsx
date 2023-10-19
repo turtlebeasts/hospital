@@ -16,6 +16,9 @@ import DeleteModal from "../../components/deletemodal/deletemodal"
 import { Hidden, Link as Links, TextField } from "@mui/material/"
 import VaccinesIcon from '@mui/icons-material/Vaccines';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
+import TransgenderIcon from '@mui/icons-material/Transgender';
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 
@@ -72,7 +75,7 @@ export default function Plist() {
                     <TableCell align="right">{`${row.reg_date}`}</TableCell>
                     <TableCell align="right">
                       <Links component={Link} to={`/patient/${row.patient_ID}`} sx={{ textDecoration: 'none' }}>
-                        {`${row.first_name} ${row.middle_name} ${row.last_name}`}
+                        {row.gender=='male'?<MaleIcon/>:row.gender=='female'?<FemaleIcon />:<TransgenderIcon />} {`${row.first_name} ${row.middle_name} ${row.last_name}`}
                       </Links>
                       <br />
                       {

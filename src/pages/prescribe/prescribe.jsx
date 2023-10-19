@@ -72,7 +72,7 @@ export default function Prescribe(){
         diag.length?
               diag.map((diag, key)=>
                 
-              <Accordion key={diag.diag_ID} expanded={panel===key} onChange={()=>setPanel(key)}>
+              <Accordion key={diag.diag_ID} id={`printer-${diag.diag_ID}`} expanded={panel===key} onChange={()=>setPanel(key)}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="panel1a-content"

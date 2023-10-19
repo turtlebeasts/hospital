@@ -7,17 +7,20 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { useParams } from "react-router-dom"
+import BorderColorIcon from '@mui/icons-material/BorderColor';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button'
+import Edit from '../edit/edit';
 
 export default function PatientCard() {
 
   let { id } = useParams()
-  const [expanded, setExpanded] = React.useState(false);
   const [detail, setDetail] = React.useState([])
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  const [open, setOpen] = React.useState(false)
 
   React.useEffect(() => {
     async function getDiagnosis(id) {
@@ -41,8 +44,8 @@ export default function PatientCard() {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <IconButton aria-label="settings" onClick={() => { setOpen(!open) }}>
+            <BorderColorIcon />
           </IconButton>
         }
         title={detail.length ? `${detail[0].first_name} ${detail[0].middle_name} ${detail[0].last_name}` : "loading..."}
@@ -80,7 +83,17 @@ export default function PatientCard() {
             </>
             : "No details found"
         }
-
+        <Dialog open={open} onClose={()=>setOpen(!open)}>
+          <DialogTitle>Edit</DialogTitle>
+          <DialogContent>
+            <Edit detail={detail[0]}/>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={()=>setOpen(!open)} color="primary">
+              Close
+            </Button>
+          </DialogActions>
+        </Dialog>
 
       </CardContent>
     </Card>

@@ -64,70 +64,9 @@ export default function SignIn() {
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
-      {/* <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-          }}
-        >
-          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Select
-              name="type"
-              label="Account Type"
-              value={type}
-              onChange={e=>setType(e.target.value)}
-              required
-              fullWidth
-            >
-              <MenuItem value="1">Admin</MenuItem>
-              <MenuItem value="2">Doctor (Diagnosis)</MenuItem>
-              <MenuItem value="3">Doctor (Medicine)</MenuItem>
-              <MenuItem value="4">Reviewer</MenuItem>
-              <MenuItem value="5">Reception</MenuItem>
-            </Select>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="info"
-              sx={{ mt: 3, mb: 2 }}
-            >
-              Sign In
-            </Button>
-          </Box>
-        </Box> */}
-
       <Grid container>
         <Grid item xs={12}></Grid>
-        <Grid item xs={12} md={4}
+        <Grid item xs={12}
           sx={{
             marginTop: 8,
             display: 'flex',

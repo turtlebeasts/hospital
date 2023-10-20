@@ -31,7 +31,7 @@ const theme = createTheme({
 
 
 function App() {
-  const user = sessionStorage.getItem('user')
+  const user = JSON.parse(sessionStorage.getItem('user'))
 
   return (
     <ThemeProvider theme={theme}>
@@ -58,7 +58,11 @@ function App() {
               <Route exact path="/patient/:id" element={<Patient />} />
               <Route path="/plist/:id" element={<DiagHome />} />
               <Route path="/prescribe/:id" element={<PrescribeHome />} />
-              <Route path="/medicineform" element={<MedicineForm />} />
+              {
+                user.type == '1' || user.type == '3' ?
+                  <Route path="/medicineform" element={<MedicineForm />} />
+                  : <></>
+              }
               <Route path="/signin" element={<SignIn />} />
               <Route path="*" element={<Notfound />} />
             </Routes>

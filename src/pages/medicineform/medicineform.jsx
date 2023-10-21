@@ -18,9 +18,15 @@ import {
   TableRow,
   Paper,
 } from '@mui/material';
+import DeleteModal2 from '../../components/deletemodal2/deletemodal2';
+
+const user = JSON.parse(sessionStorage.getItem('user'))
 
 const MedicineTable = (props) => {
+
   const medicineList = props.list
+  const setReload = props.reload
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="Medicine Table">
@@ -32,6 +38,11 @@ const MedicineTable = (props) => {
             <TableCell>Manufacturer</TableCell>
             <TableCell>Dosage</TableCell>
             <TableCell>Price</TableCell>
+            {
+              user.type == '1' ?
+                <TableCell>Price</TableCell>
+                : ""
+            }
           </TableRow>
         </TableHead>
         <TableBody>
@@ -43,6 +54,13 @@ const MedicineTable = (props) => {
               <TableCell>{medicine.man_name}</TableCell>
               <TableCell>{medicine.dosage_name}</TableCell>
               <TableCell>{medicine.price}</TableCell>
+              {
+                user.type == '1' ?
+                  <TableCell>
+                    <DeleteModal2 deleteID={medicine.medicine_ID} reload={setReload}/>
+                  </TableCell>
+                  : ""
+              }
             </TableRow>
           ))}
         </TableBody>
@@ -58,18 +76,18 @@ const MedicineForm = () => {
   const [medicineList, setMedicineList] = useState([])
   const [reload, setReload] = useState(false)
 
-  useEffect(()=>{
-    async function getManufacturer(){
+  useEffect(() => {
+    async function getManufacturer() {
       const response = await fetch("http://localhost/hospital/medicine.php?manufacturer=")
       const result = await response.json()
       setMan(result)
     }
-    async function getDosage(){
+    async function getDosage() {
       const response = await fetch("http://localhost/hospital/medicine.php?dosage_form=")
       const result = await response.json()
       setDosage(result)
     }
-    async function getMedicine(){
+    async function getMedicine() {
       const response = await fetch("http://localhost/hospital/medicine.php?medicine=")
       const result = await response.json()
       setMedicineList(result)
@@ -78,7 +96,7 @@ const MedicineForm = () => {
     getManufacturer()
     getDosage()
     setReload(false)
-  },[reload])
+  }, [reload])
 
   const [medicineData, setMedicineData] = useState({
     name: '',
@@ -112,16 +130,16 @@ const MedicineForm = () => {
     }
     fetch("http://localhost/hospital/medicine.php", {
       method: 'POST',
-      headers:{
-        'Content-Type':'application/json'
+      headers: {
+        'Content-Type': 'application/json'
       },
       body: JSON.stringify(post_data)
     })
-    .then(res=>res.text())
-    .then(data=>{
-      e.target.reset()
-    })
-    .catch(error=>console.error("Error", error))
+      .then(res => res.text())
+      .then(data => {
+        e.target.reset()
+      })
+      .catch(error => console.error("Error", error))
     setReload(true)
     formRef.current.reset();
     setMedicineData({
@@ -135,8 +153,8 @@ const MedicineForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} ref={formRef} style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
-      <Grid container spacing={2} sx={{mt: 2, padding: 5}} maxWidth="md">
+    <form onSubmit={handleSubmit} ref={formRef} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <Grid container spacing={2} sx={{ mt: 2, padding: 5 }} maxWidth="md">
         <Grid item xs={6}>
           <TextField
             fullWidth
@@ -178,7 +196,7 @@ const MedicineForm = () => {
               required
             >
               {
-                man.map((item, key)=>
+                man.map((item, key) =>
                   <MenuItem value={item.man_ID} key={key}>{item.man_name}</MenuItem>
                 )
               }
@@ -187,7 +205,7 @@ const MedicineForm = () => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-          <InputLabel>Dosage Form</InputLabel>
+            <InputLabel>Dosage Form</InputLabel>
             <Select
               label="Dosage Form"
               name="dosage_name"
@@ -196,7 +214,7 @@ const MedicineForm = () => {
               required
             >
               {
-                dosage.map((item, key)=>
+                dosage.map((item, key) =>
                   <MenuItem value={item.dosage_ID} key={key}>{item.dosage_name}</MenuItem>
                 )
               }
@@ -220,7 +238,7 @@ const MedicineForm = () => {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <MedicineTable list={medicineList}/>
+          <MedicineTable list={medicineList} reload={setReload}/>
         </Grid>
       </Grid>
     </form>

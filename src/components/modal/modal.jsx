@@ -14,6 +14,8 @@ import InputLabel from "@mui/material/InputLabel"
 import AddIcon from '@mui/icons-material/Add';
 import IconButton from "@mui/material/IconButton"
 import DeleteIcon from '@mui/icons-material/Delete';
+import { Autocomplete } from '@mui/material';
+
 
 const Modal = ({ data, setReload }) => {
   const [medicine, setMedicine] = useState([])

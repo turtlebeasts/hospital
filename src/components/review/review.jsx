@@ -4,7 +4,9 @@ import {
     CardContent,
     TextField,
     Button,
-    Divider
+    Divider,
+    Switch,
+    FormControlLabel
 } from "@mui/material"
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -22,13 +24,13 @@ export default function Review() {
     const [reload, setReload] = useState(false)
     const [reviews, setReview] = useState([])
     const [date, setDate] = useState(dayjs(''))
+    const [cured, setCured] = useState(false)
 
     let { id } = useParams()
     useEffect(() => {
         async function getReview(id) {
             const response = await fetch("http://localhost/hospital/review.php?getReview=" + id)
             const result = await response.json()
-            // console.log(result)
             setReview(result)
         }
         setReload(false)
@@ -41,7 +43,8 @@ export default function Review() {
         const post_data = {
             patient_ID: id,
             review_date: `${date.$D}/${date.$M}/${date.$y}`,
-            review: data.get('review')
+            review: data.get('review'),
+            cured: cured
         }
 
         fetch('http://localhost/hospital/review.php', {
@@ -73,7 +76,7 @@ export default function Review() {
                 }
                 <Divider />
                 {
-                    user.type == 4 || user.type == 1?
+                    user.type == 4 || user.type == 1 ?
                         <form onSubmit={handleSubmit}>
                             <Typography component="p">
                                 Review Date
@@ -85,6 +88,7 @@ export default function Review() {
                                 Review
                             </Typography>
                             <TextField multiline rows={3} name="review" fullWidth required /><br /><br />
+                            <FormControlLabel control={<Switch label="Patient cured" value={cured} onChange={() => setCured(!cured)} />} label="Cured" />
                             <Button variant="contained" type="submit">Add</Button>
                         </form>
                         : ""

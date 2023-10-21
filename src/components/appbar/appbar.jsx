@@ -12,13 +12,20 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {Link, useNavigate} from "react-router-dom"
+import {Link, useLocation, useNavigate} from "react-router-dom"
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const user = JSON.parse(sessionStorage.getItem('user'))
-
+  const location = useLocation()
+  const pathname = location.pathname
+  let display = ''
+  if(pathname.indexOf("/print/") !== -1){
+    display = 'none'
+  }else{
+    display = 'block'
+  }
   const pages = user===null?['Home', 'About', 'Medicine', 'Staff', 'SignIn']:user.type=='1' || user.type=='3'?['Home', 'MedicineForm', 'Plist']:['Home', 'Plist']
   // const settings = ['Profile', 'Account', 'Dashboard'];
   const settings = ['Profile'];
@@ -44,7 +51,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="static">
+    <AppBar position="static" sx={{display: display}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

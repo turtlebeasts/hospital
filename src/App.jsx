@@ -16,6 +16,7 @@ import SignIn from "./pages/signin/signin"
 import Patient from "./pages/patient/patient"
 import "./App.css"
 import { ThemeProvider, createTheme } from "@mui/material";
+import Printer from "./pages/printer/printer";
 
 
 const theme = createTheme({
@@ -32,7 +33,7 @@ const theme = createTheme({
 
 function App() {
   const user = JSON.parse(sessionStorage.getItem('user'))
-
+  
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
@@ -63,6 +64,7 @@ function App() {
                   <Route path="/medicineform" element={<MedicineForm />} />
                   : <></>
               }
+              <Route path="/print/:userid/:diagnosis" element={<Printer />}/>
               <Route path="/signin" element={<SignIn />} />
               <Route path="*" element={<Notfound />} />
             </Routes>

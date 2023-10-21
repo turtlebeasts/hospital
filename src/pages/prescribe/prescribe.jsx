@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import {useEffect, useState} from "react"
 import Grid from "@mui/material/Grid"
 import Card from '@mui/material/Card';
@@ -97,7 +97,8 @@ export default function Prescribe(){
                     Initial Remarks : {diag.initial_remarks}
                   </Typography><br/>
                   <Prescription diag_ID={diag.diag_ID} reload={reload}/><br/>
-                  <Modal data={diag} setReload={setReload}/>
+                  <Modal data={diag} setReload={setReload}/><br/><br/>
+                  <Button variant="contained" component={Link} to={`/print/${id}/${diag.diag_ID}`}>Print</Button>
                 </AccordionDetails>
               </Accordion>
               )

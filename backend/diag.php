@@ -25,4 +25,14 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $stmt->close();
     $mysqli->close();
 }
+
+if(isset($_GET['diagid'])){
+    extract($_GET);
+    $result = $mysqli->query("SELECT * FROM `print_details` WHERE `diag_ID`='$diagid'");
+    $array = array();
+    while($row=$result->fetch_assoc()){
+        array_push($array, $row);
+    }
+    echo json_encode($array);
+}
 ?>

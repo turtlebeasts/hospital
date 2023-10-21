@@ -6,7 +6,7 @@ header("Access-Control-Allow-Headers: Content-Type");
 $mysqli = new mysqli("localhost", "root", "", "hospital");
 
 if(isset($_GET['medicine'])){
-	$result = $mysqli->query("SELECT * FROM (`medicine` INNER JOIN `manufacturer` ON medicine.man_ID=manufacturer.man_ID)INNER JOIN `dosage_form` ON medicine.dosage_ID=dosage_form.dosage_ID");
+	$result = $mysqli->query("SELECT * FROM (`medicine` INNER JOIN `manufacturer` ON medicine.man_ID=manufacturer.man_ID)INNER JOIN `dosage_form` ON medicine.dosage_ID=dosage_form.dosage_ID WHERE medicine.isdelete='0'");
 	$array = array();
 	while($row=$result->fetch_assoc()){
 		array_push($array, $row);
@@ -43,7 +43,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $dosage_ID = $mysqli->real_escape_string($dosage_ID);
     $price = $mysqli->real_escape_string($price);
     
-    $mysqli->query("INSERT INTO `medicine`(`name`, `generic_name`, `description`, `man_ID`, `dosage_ID`, `price`) VALUES ('$name','$generic_name','$description','$man_ID','$dosage_ID','$price')");
+    $mysqli->query("INSERT INTO `medicine`(`name`, `generic_name`, `description`, `man_ID`, `dosage_ID`, `price`, `isdelete`) VALUES ('$name','$generic_name','$description','$man_ID','$dosage_ID','$price', '0')");
     if($mysqli->affected_rows){
         echo json_encode(200);
     }else{

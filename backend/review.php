@@ -15,7 +15,8 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     
     $sql = "INSERT INTO `reviews`(`review_date`, `review`, `patient_ID`) VALUES ('$review_date','$review','$patient_ID')";
 	
-	if($mysqli->query($sql)){		
+	if($mysqli->query($sql)){	
+        $mysqli->query("UPDATE `patient` SET `cured`='$cured' WHERE `patient_ID`='$patient_ID'");
     	echo json_encode(300);
 	}else{
 		echo $mysqli->error;

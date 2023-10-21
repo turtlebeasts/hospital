@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Oct 19, 2023 at 10:57 AM
+-- Generation Time: Oct 21, 2023 at 06:23 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -40,8 +40,8 @@ CREATE TABLE `diagnosis` (
 --
 
 INSERT INTO `diagnosis` (`diag_ID`, `patient_ID`, `date`, `diagnosis`, `initial_remarks`) VALUES
-(53, '10-18-2023-01', '18/10/2023', 'Found heavy chillam', 'the patient tried to eat chillam, instead of smoking'),
-(54, '10-18-2023-01', '18/10/2023', 'Diagnosis 2', 'This is the second diagnosis');
+(55, '10-20-2023-01', '20/10/2023', 'Throat cancer', 'Puffed throat, lol'),
+(56, '10-21-2023-01', '21/10/2023', 'Found heavy chillam', 'The patient tried eating chillam, instead of smoking');
 
 -- --------------------------------------------------------
 
@@ -138,21 +138,22 @@ CREATE TABLE `medicine` (
   `description` varchar(500) NOT NULL,
   `man_ID` int(11) NOT NULL,
   `dosage_ID` int(11) NOT NULL,
-  `price` int(11) NOT NULL
+  `price` int(11) NOT NULL,
+  `isdelete` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `medicine`
 --
 
-INSERT INTO `medicine` (`medicine_ID`, `name`, `generic_name`, `description`, `man_ID`, `dosage_ID`, `price`) VALUES
-(1, 'Crosine', 'Crosine', 'Used for headache treatment', 1, 1, 10),
-(2, 'Lipitor', 'Atorvastatin', 'Used to lower cholesterol levels.', 1, 1, 1),
-(3, 'Prevnar 13', 'Pneumococcal 13-valent Conjugate Vaccine', 'Used for the prevention of pneumococcal disease.', 1, 4, 10),
-(4, 'Tylenol', 'Acetaminophen', 'Pain reliever and fever reducer.', 2, 1, 0),
-(5, 'Remicade', 'Infliximab', 'Used to treat autoimmune diseases like rheumatoid arthritis.', 2, 4, 1),
-(6, 'Risperdal', 'Risperidone', 'Antipsychotic medication used to treat schizophrenia and bipolar disorder.', 2, 1, 1),
-(13, 'kr4k3n', 'Viagrino', 'This is very > O umm, umm', 2, 1, 120);
+INSERT INTO `medicine` (`medicine_ID`, `name`, `generic_name`, `description`, `man_ID`, `dosage_ID`, `price`, `isdelete`) VALUES
+(1, 'Crosine', 'Crosine', 'Used for headache treatment', 1, 1, 10, 1),
+(2, 'Lipitor', 'Atorvastatin', 'Used to lower cholesterol levels.', 1, 1, 1, 1),
+(3, 'Prevnar 13', 'Pneumococcal 13-valent Conjugate Vaccine', 'Used for the prevention of pneumococcal disease.', 1, 4, 10, 0),
+(4, 'Tylenol', 'Acetaminophen', 'Pain reliever and fever reducer.', 2, 1, 0, 1),
+(5, 'Remicade', 'Infliximab', 'Used to treat autoimmune diseases like rheumatoid arthritis.', 2, 4, 1, 0),
+(6, 'Risperdal', 'Risperidone', 'Antipsychotic medication used to treat schizophrenia and bipolar disorder.', 2, 1, 1, 0),
+(13, 'kr4k3n', 'Viagrino', 'This is very > O umm, umm', 2, 1, 120, 0);
 
 -- --------------------------------------------------------
 
@@ -179,7 +180,8 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`patient_ID`, `reg_date`, `first_name`, `middle_name`, `last_name`, `age`, `gender`, `email`, `phone`, `address`, `cured`) VALUES
-('10-18-2023-01', '18/10/2023', 'Someone', '', 'Saf', '78', 'male', 'someone', '1234567890', 'Somewhere', 0);
+('10-20-2023-01', '20/10/2023', 'Jagdish', 'Chand', 'Basu', '87', 'male', 'jagdishchand64@gmail.com', '9876231234', 'New Korigalli gate, Hebbal, Bangalore', 1),
+('10-21-2023-01', '21/10/2023', 'Someone ', '', 'New', '54', 'male', '', '', 'Amar pasfale ghorot', 0);
 
 -- --------------------------------------------------------
 
@@ -213,8 +215,30 @@ CREATE TABLE `prescription` (
 --
 
 INSERT INTO `prescription` (`pres_ID`, `diag_ID`, `medicine_ID`, `water_quantity`, `times_perday`, `instruction`) VALUES
-(42, 53, 2, 1, 1, 'eat this instead'),
-(43, 53, 4, 1, 2, '15 ml consume daily at 10:00 pm');
+(44, 55, 6, 1, 1, 'take this daily'),
+(45, 55, 3, 2, 1, 'take this after dinner'),
+(46, 56, 13, 1, 2, 'Take this medicine properly and get healthy'),
+(47, 56, 3, 2, 1, 'Eat this also');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `print_details`
+-- (See below for the actual view)
+--
+CREATE TABLE `print_details` (
+`id` int(11)
+,`diag_ID` int(11)
+,`diag_date` varchar(12)
+,`diagnosis` varchar(100)
+,`remarks` varchar(500)
+,`water_quantity` int(11)
+,`times_perday` int(11)
+,`instruction` varchar(500)
+,`generic_name` varchar(100)
+,`name` varchar(100)
+,`description` varchar(500)
+);
 
 -- --------------------------------------------------------
 
@@ -236,7 +260,21 @@ CREATE TABLE `reviews` (
 INSERT INTO `reviews` (`review_ID`, `review_date`, `review`, `patient_ID`) VALUES
 (16, '13/9/2023', 'The patient is chillin with his babes', '10-12-2023-01'),
 (17, '19/9/2023', 'Hey, he just called me and he want\'s me to come too, one babe fo me.... wohooo', '10-12-2023-01'),
-(20, '13/9/2023', 'adsfasd fa', '10-12-2023-01');
+(20, '13/9/2023', 'adsfasd fa', '10-12-2023-01'),
+(21, '20/9/2023', 'The patient is okay now', '10-18-2023-01'),
+(22, '20/9/2023', 'I said the patient is okay now', '10-18-2023-01'),
+(23, 'NaN/NaN/NaN', 'He is cured, why need to add review?', '10-18-2023-01'),
+(24, '20/9/2023', 'Now he\'s cured', '10-18-2023-01'),
+(25, '21/9/2023', 'I talked to the patient, he\'s fine now', '10-20-2023-01');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `print_details`
+--
+DROP TABLE IF EXISTS `print_details`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `print_details`  AS SELECT `prescription`.`pres_ID` AS `id`, `diagnosis`.`diag_ID` AS `diag_ID`, `diagnosis`.`date` AS `diag_date`, `diagnosis`.`diagnosis` AS `diagnosis`, `diagnosis`.`initial_remarks` AS `remarks`, `prescription`.`water_quantity` AS `water_quantity`, `prescription`.`times_perday` AS `times_perday`, `prescription`.`instruction` AS `instruction`, `medicine`.`generic_name` AS `generic_name`, `medicine`.`name` AS `name`, `medicine`.`description` AS `description` FROM ((`prescription` join `diagnosis` on(`prescription`.`diag_ID` = `diagnosis`.`diag_ID`)) join `medicine` on(`prescription`.`medicine_ID` = `medicine`.`medicine_ID`)) ;
 
 --
 -- Indexes for dumped tables
@@ -315,7 +353,7 @@ ALTER TABLE `reviews`
 -- AUTO_INCREMENT for table `diagnosis`
 --
 ALTER TABLE `diagnosis`
-  MODIFY `diag_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `diag_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 
 --
 -- AUTO_INCREMENT for table `dosage_form`
@@ -357,13 +395,13 @@ ALTER TABLE `photos`
 -- AUTO_INCREMENT for table `prescription`
 --
 ALTER TABLE `prescription`
-  MODIFY `pres_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+  MODIFY `pres_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `review_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `review_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- Constraints for dumped tables

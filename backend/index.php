@@ -81,6 +81,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
     $phone = $mysqli->real_escape_string($phone);
     $address = $mysqli->real_escape_string($address);
     $gender = $mysqli->real_escape_string($gender);    
+    $type = $mysqli->real_escape_string($type);    
     $result = $mysqli->query("SELECT * FROM `patient` WHERE `patient_ID`='$registration'");
 
     if($result->num_rows){
@@ -97,7 +98,7 @@ if($_SERVER['REQUEST_METHOD']==='POST'){
         die();
     }
     foreach($images as $i){
-        $mysqli->query("INSERT INTO photos (`patient_ID`, `image`) VALUES ('$registration', '$i')");
+        $mysqli->query("INSERT INTO photos (`patient_ID`, `file`, `type`) VALUES ('$registration', '$i', '$type')");
     }
 
     echo json_encode(300);

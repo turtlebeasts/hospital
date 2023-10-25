@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import dayjs from 'dayjs';
-import { FormControl, FormLabel, Paper, Radio, RadioGroup } from '@mui/material';
+import { FormControl, FormLabel, MenuItem, Paper, Radio, RadioGroup, Select } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,7 @@ const defaultTheme = createTheme();
 
 export default function Dashboard() {
     const navigate = useNavigate();
-    const [dob, setValue] = React.useState(dayjs(''))
+    const [type, setType] = React.useState(1)
     const [images, setImages] = React.useState([]);
     const [images2, setImages2] = React.useState([]);
     const [reg, setReg] = React.useState(dayjs(''))
@@ -60,7 +60,8 @@ export default function Dashboard() {
             email: data.get('email'),
             phone: data.get('phone'),
             address: data.get('address'),
-            images: images2
+            images: images2,
+            type: type
         }
         fetch('http://localhost/hospital/index.php', {
             method: 'POST',
@@ -301,13 +302,17 @@ export default function Dashboard() {
                                         onChange={handleImageUpload}
                                         name="images" />
                                 </Button>
+                                <Select value={type} onChange={(e)=>setType(e.target.value)} sx={{ml: 2}}>
+                                    <MenuItem value={1}>Image</MenuItem>
+                                    <MenuItem value={2}>Other</MenuItem>
+                                </Select>
                             </Grid>
                             <Grid item
                                 xs={12}>
                                 <Grid container
                                     spacing={1}>
                                     {
-                                        images.map((imageUrl, index) => (
+                                        type===1 && images.map((imageUrl, index) => (
                                             <Grid item
                                                 key={index}>
                                                 <img src={imageUrl}
@@ -318,7 +323,9 @@ export default function Dashboard() {
                                                     height="50px" />
                                             </Grid>
                                         ))
-                                    } </Grid>
+                                    } 
+                                    {images.length} {images.length? " files selected": ""}
+                                    </Grid>
                             </Grid>
                         </Grid>
                         <Button type="submit" variant="contained"

@@ -15,6 +15,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button'
 import Edit from '../edit/edit';
+import { Link } from '@mui/material';
 
 export default function PatientCard() {
 
@@ -53,23 +54,32 @@ export default function PatientCard() {
       />
       {
         detail.length ?
-          detail[0].image === undefined ?
+          detail[0].file === undefined ?
             <div style={{ textAlign: 'center' }}>
               <Typography variant="body2" color="text.secondary">
                 No images
               </Typography>
             </div>
             :
+            detail[0].type===1?
             detail.map((item, key) =>
               <CardMedia
                 key={key}
                 component="img"
-                image={item.image}
+                image={item.file}
                 alt="Paella dish"
               />
             )
+            :detail.map((item, key)=>{
+              return(
+                <div style={{textAlign: 'center'}} key={key}>
+                  <Link href={item.file} target="_blank">Attachment{key+1}</Link>
+                </div>
+              )
+            })
           : "Loading..."
       }
+      
       <CardContent>
         {
           detail.length ?

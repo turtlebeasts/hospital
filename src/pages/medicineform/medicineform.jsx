@@ -33,14 +33,11 @@ const MedicineTable = (props) => {
         <TableHead>
           <TableRow>
             <TableCell>Name</TableCell>
-            <TableCell>Generic Name</TableCell>
-            <TableCell>Description</TableCell>
-            <TableCell>Manufacturer</TableCell>
+            <TableCell>Direction of use</TableCell>
             <TableCell>Dosage</TableCell>
-            <TableCell>Price</TableCell>
             {
               user.type == '1' ?
-                <TableCell>Price</TableCell>
+                <TableCell>Action</TableCell>
                 : ""
             }
           </TableRow>
@@ -48,12 +45,9 @@ const MedicineTable = (props) => {
         <TableBody>
           {medicineList.map((medicine, index) => (
             <TableRow key={index}>
-              <TableCell>{medicine.name}</TableCell>
-              <TableCell>{medicine.generic_name}</TableCell>
+              <TableCell>{medicine.generic_name} ({medicine.name})</TableCell>
               <TableCell>{medicine.description}</TableCell>
-              <TableCell>{medicine.man_name}</TableCell>
               <TableCell>{medicine.dosage_name}</TableCell>
-              <TableCell>{medicine.price}</TableCell>
               {
                 user.type == '1' ?
                   <TableCell>
@@ -71,29 +65,22 @@ const MedicineTable = (props) => {
 
 const MedicineForm = () => {
 
-  const [man, setMan] = useState([])
   const [dosage, setDosage] = useState([])
   const [medicineList, setMedicineList] = useState([])
   const [reload, setReload] = useState(false)
 
   useEffect(() => {
-    async function getManufacturer() {
-      const response = await fetch("http://localhost/hospital/medicine.php?manufacturer=")
-      const result = await response.json()
-      setMan(result)
-    }
     async function getDosage() {
-      const response = await fetch("http://localhost/hospital/medicine.php?dosage_form=")
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/medicine.php?dosage_form=`)
       const result = await response.json()
       setDosage(result)
     }
     async function getMedicine() {
-      const response = await fetch("http://localhost/hospital/medicine.php?medicine=")
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/medicine.php?medicine=`)
       const result = await response.json()
       setMedicineList(result)
     }
     getMedicine()
-    getManufacturer()
     getDosage()
     setReload(false)
   }, [reload])
@@ -124,11 +111,11 @@ const MedicineForm = () => {
       name: data.get('name'),
       generic_name: data.get('generic_name'),
       description: data.get('description'),
-      man_ID: data.get('man_name'),
+      man_ID: 6,
       dosage_ID: data.get('dosage_name'),
-      price: data.get('price')
+      price: 0
     }
-    fetch("http://localhost/hospital/medicine.php", {
+    fetch(`${import.meta.env.VITE_SITENAME}/hospital/medicine.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -187,24 +174,6 @@ const MedicineForm = () => {
         </Grid>
         <Grid item xs={6}>
           <FormControl fullWidth>
-            <InputLabel>Manufacturer</InputLabel>
-            <Select
-              label="Manufacturer"
-              name="man_name"
-              value={medicineData.man_name}
-              onChange={handleInputChange}
-              required
-            >
-              {
-                man.map((item, key) =>
-                  <MenuItem value={item.man_ID} key={key}>{item.man_name}</MenuItem>
-                )
-              }
-            </Select>
-          </FormControl>
-        </Grid>
-        <Grid item xs={6}>
-          <FormControl fullWidth>
             <InputLabel>Dosage Form</InputLabel>
             <Select
               label="Dosage Form"
@@ -220,17 +189,6 @@ const MedicineForm = () => {
               }
             </Select>
           </FormControl>
-        </Grid>
-        <Grid item xs={6}>
-          <TextField
-            fullWidth
-            label="Price"
-            name="price"
-            type="number"
-            value={medicineData.price}
-            onChange={handleInputChange}
-            required
-          />
         </Grid>
         <Grid item xs={6}>
           <Button type="submit" variant="contained" color="primary">

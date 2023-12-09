@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
 import dayjs from 'dayjs';
-import {Paper} from '@mui/material';
+import {FormControl, FormLabel, Paper, Radio, RadioGroup} from '@mui/material';
 import {styled} from '@mui/material/styles';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import {useNavigate} from "react-router-dom";
@@ -25,12 +25,13 @@ const defaultTheme = createTheme();
 
 export default function Edit({detail}) {
     const navigate = useNavigate();
+    // console.log(detail)
     const [dob, setValue] = React.useState(dayjs(''))
     const [images, setImages] = React.useState([]);
     const [images2, setImages2] = React.useState([]);
     const [reg, setReg] = React.useState(dayjs(''))
     const [error, setError] = React.useState(false)
-    const [phoneNumber, setPhoneNumber] = React.useState('');
+    const [phoneNumber, setPhoneNumber] = React.useState(detail.phone);
     
     const handlePhoneNumberChange = (event) => { // Remove non-numeric characters
         const formattedPhoneNumber = event.target.value.replace(/\D/g, '');
@@ -44,44 +45,32 @@ export default function Edit({detail}) {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const post_data = {
-            registration: data.get('registration_number'),
+            registration: detail.patient_ID,
             firstName: data.get('firstName'),
             middleName: data.get('middleName'),
             lastName: data.get('lastName'),
-            p_firstName: data.get('p_firstName'),
-            p_middleName: data.get('p_middleName'),
-            p_lastName: data.get('p_lastName'),
             age: data.get('age'),
-            reg_date: `${
-                reg.$D
-            }/${
-                reg.$M + 1
-            }/${
-                reg.$y
-            }`,
+            gender: data.get('gender'),
+            reg_date: detail.reg_date,
             email: data.get('email'),
             phone: data.get('phone'),
-            address: data.get('address'),
-            images: images2
+            address: data.get('address')
         }
-        fetch('http://localhost/hospital/index.php', {
+        fetch(`${import.meta.env.VITE_SITENAME}/hospital/update.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(post_data)
         }).then(res => res.text()).then(data => {
-            if (data == 300) {
-                alert("Insert successful")
+            if (data == 200) {
+                alert("Update successful")
                 navigate('/plist')
                 return null
-            } else if (data == 200) {
-                alert('Registration Number already exist')
             } else {
                 alert("Error inserting")
                 console.log(data)
             }
-            // console.log(data)
         }).catch(error => console.error("Error", error))
     };
 
@@ -97,27 +86,6 @@ export default function Edit({detail}) {
         width: 1
     });
 
-    const handleImageUpload = (e) => {
-        const files = e.target.files;
-        const imageArray = [];
-        const imageArray2 = [];
-
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
-            const imageUrl = URL.createObjectURL(file);
-            imageArray.push(imageUrl);
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                imageArray2.push(e.target.result);
-            };
-
-            reader.readAsDataURL(file);
-        }
-        setImages2(imageArray2);
-        setImages(imageArray);
-    };
-
     return (
         <ThemeProvider theme={defaultTheme}>
             <Container component="main">
@@ -131,7 +99,7 @@ export default function Edit({detail}) {
                     }
                 }>
                     <Typography component="h1" variant="h5">
-                        New Patient Form
+                        Update this patient form
                     </Typography>
                     <Box component="form"
                         onSubmit={handleSubmit}
@@ -146,39 +114,15 @@ export default function Edit({detail}) {
                                 <Typography component="p"
                                     sx={
                                         {mb: 2}
-                                }>Date of registration
+                                }>Date of registration ({detail.reg_date})
                                 </Typography>
-                                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                    <DatePicker name="reg_date"
-                                        onChange={
-                                            (newValue) => setReg(newValue)
-                                        }/>
-                                </LocalizationProvider>
                             </Grid>
                             <Grid item
                                 xs={6}
                                 sm={12}>
                                 <Typography component="p">
-                                    Registration Number
+                                    Registration Number ({detail.patient_ID})
                                 </Typography>
-                            </Grid>
-                            <Grid item
-                                xs={12}
-                                sm={4}>
-                                <TextField error={error}
-                                    autoComplete="given-name"
-                                    name="registration_number"
-                                    required
-                                    fullWidth
-                                    id="firstName"
-                                    defaultValue={detail.patient_ID}
-                                    label={"Registration Number"}
-                                    helperText={
-                                        error && "Cannot include /"
-                                    }
-                                    onChange={
-                                        (e) => e.target.value.includes('/') ? setError(true) : setError(false)
-                                    }/>
                             </Grid>
                             <Grid item
                                 xs={12}
@@ -190,38 +134,17 @@ export default function Edit({detail}) {
                             <Grid item
                                 xs={12}
                                 sm={4}>
-                                <TextField autoComplete="given-name" name="firstName" required fullWidth id="firstName" label="First Name"/>
+                                <TextField autoComplete="given-name" name="firstName" required fullWidth id="firstName" label="First Name" defaultValue={detail.first_name}/>
                             </Grid>
                             <Grid item
                                 xs={12}
                                 sm={4}>
-                                <TextField fullWidth id="middleName" label="Middle Name" name="middleName" autoComplete="family-name"/>
+                                <TextField fullWidth id="middleName" label="Middle Name" name="middleName" autoComplete="family-name" defaultValue={detail.middle_name}/>
                             </Grid>
                             <Grid item
                                 xs={12}
                                 sm={4}>
-                                <TextField required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="family-name"/>
-                            </Grid>
-                            <Grid item
-                                xs={12}
-                                sm={12}>
-                                <Typography component="p">Parent / Guardian / Spouse's Name
-                                </Typography>
-                            </Grid>
-                            <Grid item
-                                xs={12}
-                                sm={4}>
-                                <TextField autoComplete="given-name" name="p_firstName" fullWidth id="firstName" label="First Name"/>
-                            </Grid>
-                            <Grid item
-                                xs={12}
-                                sm={4}>
-                                <TextField fullWidth id="middleName" label="Middle Name" name="p_middleName" autoComplete="family-name"/>
-                            </Grid>
-                            <Grid item
-                                xs={12}
-                                sm={4}>
-                                <TextField fullWidth id="lastName" label="Last Name" name="p_lastName" autoComplete="family-name"/>
+                                <TextField required fullWidth id="lastName" label="Last Name" name="lastName" autoComplete="family-name" defaultValue={detail.last_name}/>
                             </Grid>
                             <Grid item
                                 xs={12}>
@@ -230,7 +153,21 @@ export default function Edit({detail}) {
                                         {mb: 2}
                                 }>Patient Age
                                 </Typography>
-                                <TextField type="number" id="lastName" label="Age" name="age" autoComplete="family-name"/>
+                                <TextField type="number" id="lastName" label="Age" name="age" autoComplete="family-name" defaultValue={detail.age}/>
+                            </Grid>
+                            <Grid item xs={12}>
+                                <FormControl>
+                                    <FormLabel id="demo-radio-buttons-group-label">Gender</FormLabel>
+                                    <RadioGroup
+                                        aria-labelledby="demo-radio-buttons-group-label"
+                                        defaultValue={detail.gender}
+                                        name="gender"
+                                    >
+                                        <FormControlLabel value="female" control={<Radio />} label="Female" />
+                                        <FormControlLabel value="male" control={<Radio />} label="Male" />
+                                        <FormControlLabel value="other" control={<Radio />} label="Other" />
+                                    </RadioGroup>
+                                </FormControl>
                             </Grid>
                             <Grid item
                                 xs={12}
@@ -239,7 +176,7 @@ export default function Edit({detail}) {
                                     sx={
                                         {mb: 2}
                                 }>Email</Typography>
-                                <TextField fullWidth id="email" label="Email Address" name="email" autoComplete="email"/>
+                                <TextField fullWidth id="email" label="Email Address" name="email" autoComplete="email" defaultValue={detail.email}/>
                             </Grid>
                             <Grid item
                                 xs={12}
@@ -273,41 +210,8 @@ export default function Edit({detail}) {
                                     label="Address"
                                     type="text"
                                     id="address"
+                                    defaultValue={detail.address}
                                     autoComplete=""/>
-                            </Grid>
-                            <Grid item
-                                xs={12}>
-                                <Typography component="p"
-                                    sx={
-                                        {mb: 2}
-                                }>
-                                    Previous diagnosis images (if any)
-                                </Typography>
-                                <Button component="label" variant="contained"
-                                    startIcon={<CloudUploadIcon/>}>
-                                    Upload file
-                                    <VisuallyHiddenInput type="file" multiple
-                                        onChange={handleImageUpload}
-                                        name="images"/>
-                                </Button>
-                            </Grid>
-                            <Grid item
-                                xs={12}>
-                                <Grid container
-                                    spacing={1}>
-                                    {
-                                    images.map((imageUrl, index) => (
-                                        <Grid item
-                                            key={index}>
-                                            <img src={imageUrl}
-                                                alt={
-                                                    `Image ${index}`
-                                                }
-                                                width='50px'
-                                                height="50px"/>
-                                        </Grid>
-                                    ))
-                                } </Grid>
                             </Grid>
                         </Grid>
                         <Button type="submit" variant="contained"

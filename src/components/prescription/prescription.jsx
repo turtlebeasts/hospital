@@ -6,7 +6,7 @@ export default function Prescription( {diag_ID, reload} ){
 	const [pres, setPres] = useState([])
 	useEffect(()=>{
 		async function getPres(diag_ID){
-			const response = await fetch("http://localhost/hospital/prescribe.php?diag_ID="+diag_ID)
+			const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/prescribe.php?diag_ID=${diag_ID}`)
 			const result = await response.json()
 			setPres(result)
 		}

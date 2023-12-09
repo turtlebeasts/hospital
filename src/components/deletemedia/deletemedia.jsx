@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { Link } from '@mui/material';
 
 const DeleteConfirmationModal = ({ open, onClose, onConfirm }) => {
   return (
@@ -8,7 +9,7 @@ const DeleteConfirmationModal = ({ open, onClose, onConfirm }) => {
       <DialogTitle>Confirm Delete</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Are you sure you want to delete this entry?
+          Are you sure you want to delete this Item?
         </DialogContentText>
       </DialogContent>
       <DialogActions>
@@ -23,7 +24,7 @@ const DeleteConfirmationModal = ({ open, onClose, onConfirm }) => {
   );
 };
 
-const DeleteModal = ({ deleteID, reload }) => {
+const DeleteMedia = ({ itemfile, ind, deleteID, reload }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = () => {
@@ -31,11 +32,11 @@ const DeleteModal = ({ deleteID, reload }) => {
   };
 
   const handleConfirmDelete = async () => {
-    const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/delete.php?id=${deleteID}`)
+    const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/mediadelete.php?id=${deleteID}`)
     const result = await response.json()
-    if(result===200){
+    if (result === 200) {
       reload(true)
-    }else{
+    } else {
       console.log("Error occured")
       console.log(result)
     }
@@ -48,10 +49,10 @@ const DeleteModal = ({ deleteID, reload }) => {
 
   return (
     <div>
+      <Link href={itemfile} target="_blank">Attachment{ind}</Link>
       <IconButton variant="contained" color="error" onClick={handleDelete}>
         <DeleteForeverIcon />
       </IconButton>
-
       <DeleteConfirmationModal
         open={isModalOpen}
         onClose={handleModalClose}
@@ -61,4 +62,4 @@ const DeleteModal = ({ deleteID, reload }) => {
   );
 };
 
-export default DeleteModal;
+export default DeleteMedia;

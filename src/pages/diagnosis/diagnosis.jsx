@@ -12,6 +12,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import TextField from '@mui/material/TextField';
 import Button from "@mui/material/Button"
 import Box from "@mui/material/Box"
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { CardHeader, IconButton } from "@mui/material";
+import DeleteModalDiag from "../../components/deletemodaldiag/deletemodaldiag";
 
 export default function Diagnosis(){
 
@@ -22,7 +25,7 @@ export default function Diagnosis(){
   let { id } = useParams()
   useEffect(()=>{
     async function getDiagnosis(id){
-      const response = await fetch("http://localhost/hospital/index.php?getDiag="+id)
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?getDiag=${id}`)
       const result = await response.json()
       setDiag(result)
     }
@@ -39,7 +42,7 @@ export default function Diagnosis(){
       diagnosis: data.get('diagnosis'),
       initial_remarks: data.get('initial_remarks'),
     }
-    fetch("http://localhost/hospital/diag.php", {
+    fetch(`${import.meta.env.VITE_SITENAME}/hospital/diag.php`, {
       method: 'POST',
       headers:{
         'Content-Type':'application/json'
@@ -64,14 +67,13 @@ export default function Diagnosis(){
               diag.map(diag=>
                 <Grid item xs={12} key={diag.diag_ID}>
                   <Card>
+                    <CardHeader
+                    action={
+                        <DeleteModalDiag deleteID={diag.diag_ID} reload={setReload} />
+                    }
+                    subheader={diag.date}
+                    />
                     <CardContent>
-                      <Typography
-                        variant="p"
-                      >
-                        Date : {diag.date}
-                      </Typography>
-                      <br/>
-                      <br/>
                       <Typography
                         variant="p"
                       >

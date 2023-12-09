@@ -17,6 +17,7 @@ import Patient from "./pages/patient/patient"
 import "./App.css"
 import { ThemeProvider, createTheme } from "@mui/material";
 import Printer from "./pages/printer/printer";
+import Medicines from "./pages/medicines/medicines";
 
 
 const theme = createTheme({
@@ -62,6 +63,11 @@ function App() {
               {
                 user.type == '1' || user.type == '3' ?
                   <Route path="/medicineform" element={<MedicineForm />} />
+                  : <></>
+              }
+              {
+                user.type == '1' || user.type == '3' ?
+                  <Route path="/medicines/:id" element={<Medicines />} />
                   : <></>
               }
               <Route path="/print/:userid/:diagnosis" element={<Printer />}/>

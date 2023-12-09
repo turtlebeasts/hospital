@@ -10,13 +10,13 @@ export default function Printer() {
 
     useEffect(() => {
         async function diagnose(diagnosis) {
-            const response = await fetch("http://localhost/hospital/diag.php?diagid=" + diagnosis)
+            const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/diag.php?diagid=${diagnosis}`)
             const result = await response.json()
             setDiag(result)
             // console.log(result)
         }
         async function patient(userid) {
-            const response = await fetch("http://localhost/hospital/index.php?getDetail=" + userid)
+            const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?getDetail=${userid}`)
             const result = await response.json()
             setDetail(result[0])
             // console.log(result)

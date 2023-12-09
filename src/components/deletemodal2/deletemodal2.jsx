@@ -31,7 +31,7 @@ const DeleteModal2 = ({ deleteID, reload }) => {
   };
 
   const handleConfirmDelete = async () => {
-    const response = await fetch("http://localhost/hospital/meddelete.php?id="+deleteID)
+    const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/meddelete.php?id=${deleteID}`)
     const result = await response.json()
     if(result===200){
       reload(true)

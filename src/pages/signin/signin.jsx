@@ -42,7 +42,7 @@ export default function SignIn() {
       type: data.get('type')
     }
 
-    fetch("http://localhost/hospital/login.php", {
+    fetch(`${import.meta.env.VITE_SITENAME}/hospital/login.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

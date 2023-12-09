@@ -15,22 +15,30 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogActions from '@mui/material/DialogActions';
 import Button from '@mui/material/Button'
 import Edit from '../edit/edit';
-import { Link } from '@mui/material';
+import { CircularProgress, LinearProgress, Link } from '@mui/material';
+import DeleteMedia from '../deletemedia/deletemedia';
+import FileUploadComponent from '../fileuploadcomponent/fileuploadcomponent';
 
 export default function PatientCard() {
 
   let { id } = useParams()
   const [detail, setDetail] = React.useState([])
   const [open, setOpen] = React.useState(false)
+  const [reload, setReload] = React.useState(false)
 
   React.useEffect(() => {
     async function getDiagnosis(id) {
-      const response = await fetch("http://localhost/hospital/index.php?getDetail=" + id)
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?getDetail=${id}`)
       const result = await response.json()
       setDetail(result)
+      setReload(false)
     }
     getDiagnosis(id)
-  }, [])
+  }, [reload])
+
+  const handleDelete = () => {
+    setReload(true)
+  }
 
   return (
     <Card>
@@ -40,17 +48,18 @@ export default function PatientCard() {
             {
               detail.length ?
                 detail[0].first_name[0]
-                : "loading..."
+                : <CircularProgress size={20} />
             }
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings" onClick={() => { setOpen(!open) }}>
-            <BorderColorIcon />
-          </IconButton>
+          detail.length ?
+            <IconButton aria-label="settings" onClick={() => { setOpen(!open) }}>
+              <BorderColorIcon />
+            </IconButton> : ""
         }
-        title={detail.length ? `${detail[0].first_name} ${detail[0].middle_name} ${detail[0].last_name}` : "loading..."}
-        subheader="September 14, 2016"
+        title={detail.length ? `${detail[0].first_name} ${detail[0].middle_name} ${detail[0].last_name}` : <LinearProgress />}
+        subheader={detail.length ? "September 14, 2016" : ""}
       />
       {
         detail.length ?
@@ -61,50 +70,62 @@ export default function PatientCard() {
               </Typography>
             </div>
             :
-            detail[0].type===1?
-            detail.map((item, key) =>
-              <CardMedia
-                key={key}
-                component="img"
-                image={item.file}
-                alt="Paella dish"
-              />
-            )
-            :detail.map((item, key)=>{
-              return(
-                <div style={{textAlign: 'center'}} key={key}>
-                  <Link href={item.file} target="_blank">Attachment{key+1}</Link>
-                </div>
+            detail[0].type === 1 ?
+              detail.map((item, key) =>
+                <CardMedia
+                  key={key}
+                  component="img"
+                  image={item.file}
+                  alt="Paella dish"
+                />
               )
-            })
-          : "Loading..."
+              : detail.map((item, key) => {
+                return (
+                  <div style={{ textAlign: 'center' }} key={key}>
+                    <DeleteMedia itemfile={item.file} ind={key + 1} deleteID={item.photo_ID} reload={setReload} />
+                  </div>
+                )
+              })
+          :
+          <div style={{ padding: '3rem' }}>
+            Loading attachments...
+            <LinearProgress />
+          </div>
       }
-      
+
       <CardContent>
         {
           detail.length ?
             <>
-              <Typography variant="h6">Age: {detail[0].age}</Typography>
+              <FileUploadComponent reload={setReload} />
+              <Typography variant="h6" sx={{ mt: 2 }}>Age: {detail[0].age}</Typography>
               <Typography variant="h6">Email: {detail[0].email}</Typography>
               <Typography variant="h6">Phone: {detail[0].phone}</Typography>
               <Typography variant="h6">
                 Address: {detail[0].address}
               </Typography>
             </>
-            : "No details found"
+            :
+            <>
+              <Typography variant="h6">Age: <CircularProgress size={15} /></Typography>
+              <Typography variant="h6">Email: <CircularProgress size={15} /></Typography>
+              <Typography variant="h6">Phone: <CircularProgress size={15} /></Typography>
+              <Typography variant="h6">
+                Address: <CircularProgress size={15} />
+              </Typography>
+            </>
         }
-        <Dialog open={open} onClose={()=>setOpen(!open)}>
+        <Dialog open={open} onClose={() => setOpen(!open)}>
           <DialogTitle>Edit</DialogTitle>
           <DialogContent>
-            <Edit detail={detail[0]}/>
+            <Edit detail={detail[0]} />
           </DialogContent>
           <DialogActions>
-            <Button onClick={()=>setOpen(!open)} color="primary">
+            <Button onClick={() => setOpen(!open)} color="primary">
               Close
             </Button>
           </DialogActions>
         </Dialog>
-
       </CardContent>
     </Card>
   );

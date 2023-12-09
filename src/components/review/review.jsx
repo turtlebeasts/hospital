@@ -6,7 +6,11 @@ import {
     Button,
     Divider,
     Switch,
-    FormControlLabel
+    FormControlLabel,
+    InputLabel,
+    Select,
+    MenuItem,
+    CircularProgress
 } from "@mui/material"
 
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -15,6 +19,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import dayjs from 'dayjs';
+import DeleteModalReview from "../deletemodalreview/deletemodalreview";
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 
@@ -24,14 +29,16 @@ export default function Review() {
     const [reload, setReload] = useState(false)
     const [reviews, setReview] = useState([])
     const [date, setDate] = useState(dayjs(''))
-    const [cured, setCured] = useState(false)
+    const [select, setSelect] = useState("Not cured")
+    const [loading, setLoading] = useState(true)
 
     let { id } = useParams()
     useEffect(() => {
         async function getReview(id) {
-            const response = await fetch("http://localhost/hospital/review.php?getReview=" + id)
+            const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/review.php?getReview=${id}`)
             const result = await response.json()
             setReview(result)
+            setLoading(false)
         }
         setReload(false)
         getReview(id)
@@ -44,10 +51,9 @@ export default function Review() {
             patient_ID: id,
             review_date: `${date.$D}/${date.$M}/${date.$y}`,
             review: data.get('review'),
-            cured: cured
+            status: data.get('status')
         }
-
-        fetch('http://localhost/hospital/review.php', {
+        fetch(`${import.meta.env.VITE_SITENAME}/hospital/review.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -70,9 +76,22 @@ export default function Review() {
                     Reviews
                 </Typography>
                 {
+                    !loading?
                     reviews.length ?
-                        reviews.map((item, key) => <Typography key={key}><u>{item.review_date}</u><br />{item.review}</Typography>)
+                        reviews.map((item, key) => {
+                            return (
+                                <div key={key} style={{backgroundColor: '#99c1f1', borderRadius: '15px', padding: '1rem', marginBottom: '1rem'}}>
+                                    <Typography>
+                                        <u>{item.review_date}</u>
+                                        <br />{item.review}
+                                        <br />{item.status}
+                                    </Typography>
+                                    <DeleteModalReview deleteID={item.review_ID} reload={setReload} />
+                                </div>
+                            )
+                        })
                         : "No reviews added till now"
+                    :<CircularProgress />
                 }
                 <Divider />
                 {
@@ -88,8 +107,26 @@ export default function Review() {
                                 Review
                             </Typography>
                             <TextField multiline rows={3} name="review" fullWidth required /><br /><br />
-                            <FormControlLabel control={<Switch label="Patient cured" value={cured} onChange={() => setCured(!cured)} />} label="Cured" />
-                            <Button variant="contained" type="submit">Add</Button>
+                            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                fullWidth
+                                value={select}
+                                name="status"
+                                onChange={(e)=>setSelect(e.target.value)}
+                            >
+                                <MenuItem value="Not cured">Not cured</MenuItem>
+                                <MenuItem value="Cured">Cured</MenuItem>
+                                <MenuItem value="Under circumstances">Under circumstances</MenuItem>
+                                <MenuItem value="Left treatment">Left treatment</MenuItem>
+                                <MenuItem value="Dead">Dead</MenuItem>
+                            </Select><br/><br/>
+                            <Button variant="contained" type="submit" disabled={loading}>
+                                {
+                                    loading?<CircularProgress size={25}/>:"Add"
+                                }
+                            </Button>
                         </form>
                         : ""
                 }

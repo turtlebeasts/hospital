@@ -61,9 +61,10 @@ export default function Dashboard() {
             phone: data.get('phone'),
             address: data.get('address'),
             images: images2,
-            type: type
+            type: type,
+            disease: data.get('disease')
         }
-        fetch('http://localhost/hospital/index.php', {
+        fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -283,6 +284,20 @@ export default function Dashboard() {
                                     fullWidth
                                     name="address"
                                     label="Address"
+                                    type="text"
+                                    id="address"
+                                    autoComplete="" />
+                            </Grid>
+                            <Grid item
+                                xs={12}>
+                                <Typography component="p"
+                                    sx={
+                                        { mb: 2 }
+                                    }>Diagnosed disease</Typography>
+                                <TextField 
+                                    fullWidth
+                                    name="disease"
+                                    label="Diagnosed disease"
                                     type="text"
                                     id="address"
                                     autoComplete="" />

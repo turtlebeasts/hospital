@@ -29,38 +29,13 @@ export default function Prescribe(){
   let { id } = useParams()
   useEffect(()=>{
     async function getDiagnosis(id){
-      const response = await fetch("http://localhost/hospital/index.php?getDiag="+id)
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?getDiag=${id}`)
       const result = await response.json()
       setDiag(result)
     }
     setReload(false)
     getDiagnosis(id)
   },[reload])
-
-  async function handleSubmit(e){
-    e.preventDefault()
-    const data = new FormData(e.currentTarget)
-    const post_data = {
-      patient_ID: id,
-      date: `${date.$D}/${date.$M + 1}/${date.$y}`,
-      diagnosis: data.get('diagnosis'),
-      initial_remarks: data.get('initial_remarks'),
-    }
-    fetch("http://localhost/hospital/diag.php", {
-      method: 'POST',
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify(post_data)
-    })
-    .then(res=>res.text())
-    .then(data=>{
-      e.target.reset()
-    })
-    .catch(error=>console.error("Error", error))
-
-    setReload(true)
-  }
 
   return(
     <Box
@@ -97,7 +72,9 @@ export default function Prescribe(){
                     Initial Remarks : {diag.initial_remarks}
                   </Typography><br/>
                   <Prescription diag_ID={diag.diag_ID} reload={reload}/><br/>
-                  <Modal data={diag} setReload={setReload}/><br/><br/>
+                  {/* <Modal data={diag} setReload={setReload}/> */}
+                  <Button variant="outlined" size="small" component={Link} to={`/medicines/${diag.diag_ID}`}>Prescribe</Button>
+                  <br/><br/>
                   <Button variant="contained" component={Link} to={`/print/${id}/${diag.diag_ID}`}>Print</Button>
                 </AccordionDetails>
               </Accordion>

@@ -19,38 +19,18 @@ import { Autocomplete } from '@mui/material';
 
 const Modal = ({ data, setReload }) => {
   const [medicine, setMedicine] = useState([])
+  const [medicines, setMedicines] = useState({})
   const [open, setOpen] = useState(false)
   const user = JSON.parse(sessionStorage.getItem('user'))
 
   useEffect(() => {
     async function getMedicine() {
-      const response = await fetch("http://localhost/hospital/medicine.php?medicine=")
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/medicine.php?medicine=`)
       const result = await response.json()
       setMedicine(result)
     }
     getMedicine()
   }, [])
-
-  const [medicines, setMedicines] = useState([{ name: '', quantity: 0, dosage: 0, instruction: '' }]);
-
-  const handleInputChange = (index, event) => {
-    const { name, value } = event.target;
-    const newMedicines = [...medicines];
-    newMedicines[index][name] = name === 'instruction' ? value : value >= 0 ? value : 0;
-    setMedicines(newMedicines);
-  };
-
-  const handleAddMedicine = () => {
-    setMedicines([...medicines, { name: '', quantity: 0, dosage: 0, instruction: '' }]);
-  };
-
-  const handleRemoveMedicine = (index) => {
-    const newMedicines = [...medicines];
-    if (medicines.length > 1) {
-      newMedicines.splice(index, 1);
-      setMedicines(newMedicines);
-    }
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -59,7 +39,7 @@ const Modal = ({ data, setReload }) => {
       "prescription": medicines,
     }
 
-    fetch("http://localhost/hospital/prescribe.php", {
+    fetch(`${import.meta.env.VITE_SITENAME}/hospital/prescribe.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -79,77 +59,69 @@ const Modal = ({ data, setReload }) => {
       .catch(error => console.error("Error", error))
   };
 
+  const [med1, setMed1] = useState('')
+  const [solute, setSolute] = useState('')
+  const [times, setTimes] = useState(0)
+  const [instruction, setInstruction] = useState('')
 
+  const handleAdd = () => {
+    setMedicines({
+      
+    })
+  }
   return (
     <>
       <Dialog open={open} onClose={() => setOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>Prescribe</DialogTitle>
+        <DialogTitle>Prescribe medicines for diagnosis on date {data.date}</DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent>
-            <Typography variant="h6">
-              {data.date}
-            </Typography>
-            <Typography variant="h6" sx={{ mb: 2 }}>
-              Add medicine
-            </Typography>
-            {medicines.map((med, index) => (
-              <Grid container spacing={2} key={index} sx={{ mb: 2 }}>
-                <Grid item xs={3}>
-                  <FormControl fullWidth>
-                    <InputLabel>Medicine</InputLabel>
-                    <Select
-                      name="name"
-                      label="Medicine"
-                      value={med.name}
-                      fullWidth
-                      required
-                      onChange={(e) => handleInputChange(index, e)}
-                    >
-                      {
-                        medicine.map((item, key) => <MenuItem key={key} value={item.medicine_ID}>{item.name}({item.generic_name})</MenuItem>)
-                      }
-                    </Select>
-                  </FormControl>
-                </Grid>
-                <Grid item xs={2}>
+
+
+            <Grid container spacing={2} sx={{ mb: 2 }}>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel>Medicine</InputLabel>
+                  <Select
+                    sx={{ mb: 2 }}
+                    name="name"
+                    label="Medicine"
+                    value={med1}
+                    fullWidth
+                    required
+                    onChange={(e) => setMed1(e.target.value)}
+                  >
+                    {
+                      medicine.map((item, key) => <MenuItem key={key} value={item.medicine_ID}>{item.name}({item.generic_name})</MenuItem>)
+                    }
+                  </Select>
                   <TextField
-                    type="number"
-                    label="Cup of water"
-                    name="quantity"
-                    value={med.quantity}
-                    onChange={(e) => handleInputChange(index, e)}
+                    sx={{ mb: 2 }}
+                    type="text"
+                    label="Mix with"
+                    name="solute"
+                    value={solute}
+                    onChange={(e) => setSolute(e.target.value)}
                   />
-                </Grid>
-                <Grid item xs={2}>
                   <TextField
+                    sx={{ mb: 2 }}
                     type="number"
                     label="Times perday"
                     name="dosage"
-                    value={med.dosage}
-                    onChange={(e) => handleInputChange(index, e)}
+                    value={times}
+                    onChange={(e) => setTimes(e.target.value <= 0 ? 0 : e.target.value)}
                   />
-                </Grid>
-                <Grid item xs={4}>
                   <TextField
+                    sx={{ mb: 2 }}
                     type="text"
                     label="Instruction"
                     name="instruction"
-                    value={med.instruction}
-                    onChange={(e) => handleInputChange(index, e)}
+                    value={instruction}
+                    onChange={(e) => setInstruction(e.target.value)}
                   />
-                  {index === medicines.length - 1 && (
-                    <IconButton type="button" onClick={handleAddMedicine}>
-                      <AddIcon />
-                    </IconButton>
-                  )}
-                </Grid>
-                <Grid item xs={1}>
-                  <IconButton type="button" onClick={() => handleRemoveMedicine(index)} disabled={medicines.length > 1 ? false : true}>
-                    <DeleteIcon />
-                  </IconButton>
-                </Grid>
+                </FormControl>
+                <Button variant='contained' onClick={handleAdd}>Add</Button>
               </Grid>
-            ))}
+            </Grid>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpen(false)}>Cancel</Button>
@@ -164,9 +136,6 @@ const Modal = ({ data, setReload }) => {
           Prescribe
         </Button> : ""
       }
-      {/* <Button variant="contained" sx={{ mt: 2, ml: 2 }} size="small">
-        Print
-      </Button> */}
     </>
   );
 };

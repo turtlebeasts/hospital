@@ -19,7 +19,7 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
-import Paginations from '../../components/pagination/pagination';
+import Paginations from '../../components/paginations/paginations';
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 

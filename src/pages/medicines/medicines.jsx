@@ -167,7 +167,7 @@ export default function Medicines() {
                             >
                                 {
                                     med.map((item, key) =>
-                                        <MenuItem value={item.medicine_ID} key={key}>{item.name}</MenuItem>
+                                        <MenuItem value={item.medicine_ID} key={key}>{item.generic_name}</MenuItem>
                                     )
                                 }
                             </Select>
@@ -190,7 +190,7 @@ export default function Medicines() {
                                     >
                                         {
                                             med.map((item, key) =>
-                                                <MenuItem value={item.name} key={key}>{item.name}</MenuItem>
+                                                <MenuItem value={item.name} key={key}>{item.generic_name}</MenuItem>
                                             )
                                         }
                                     </Select>

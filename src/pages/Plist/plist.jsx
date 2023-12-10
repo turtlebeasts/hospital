@@ -19,6 +19,7 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
+import Paginations from '../../components/pagination/pagination';
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 
@@ -31,6 +32,8 @@ export default function Plist() {
   const [circum, setCircum] = React.useState(0)
   const [left, setleft] = React.useState(0)
   const [dead, setdead] = React.useState(0)
+  const [page, setPage] = React.useState(0)
+  const [pageCount, setPageCount] = React.useState(0)
 
   const [curedLoad, setCuredLoad] = React.useState(true)
   const [circumLoad, setCircumLoad] = React.useState(true)
@@ -39,7 +42,7 @@ export default function Plist() {
 
   React.useEffect(() => {
     async function getData() {
-      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?get_meds=`);
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?get_meds=${page}`);
       const result = await response.json()
       setData(result)
       setDataLoad(false)
@@ -69,12 +72,18 @@ export default function Plist() {
       setdead(result)
       setdeadLoad(false)
     }
+    async function getCount() {
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/plist.php?count=`);
+      const result = await response.json()
+      setPageCount(result)
+    }
+    getCount()
     getdead()
     getLefttreat()
     getCircum()
     getCured()
     getData()
-  }, [reload])
+  }, [reload, page])
 
   const handleSearch = (e) => {
     let searchTerm = e.target.value
@@ -287,6 +296,13 @@ export default function Plist() {
             </Table>
           </TableContainer>
         </Hidden>
+        <Grid item xs={12}>
+          <Card>
+            <CardContent>
+              <Paginations count={pageCount} setPages={setPage} page={page}/>
+            </CardContent>
+          </Card>
+        </Grid>
       </Grid>
     </Box>
   );

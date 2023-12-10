@@ -42,7 +42,7 @@ export default function Plist() {
 
   React.useEffect(() => {
     async function getData() {
-      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?get_meds=${page}`);
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?get_meds=${page*10}`);
       const result = await response.json()
       setData(result)
       setDataLoad(false)
@@ -299,7 +299,10 @@ export default function Plist() {
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Paginations count={pageCount} setPages={setPage} page={page}/>
+              {
+                dataLoad?""
+                :<Paginations count={pageCount} setPages={setPage} page={page}/>
+              }
             </CardContent>
           </Card>
         </Grid>

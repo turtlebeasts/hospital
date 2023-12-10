@@ -33,7 +33,7 @@ export default function Plist() {
   const [left, setleft] = React.useState(0)
   const [dead, setdead] = React.useState(0)
   const [page, setPage] = React.useState(0)
-  const [pageCount, setPageCount] = React.useState(0)
+  const [pageCount, setPageCount] = React.useState(1)
 
   const [curedLoad, setCuredLoad] = React.useState(true)
   const [circumLoad, setCircumLoad] = React.useState(true)

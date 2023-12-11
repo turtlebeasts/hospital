@@ -24,3 +24,5 @@ todo.txt
 *.njsproj
 *.sln
 *.sw?
+.gitignore
+.env

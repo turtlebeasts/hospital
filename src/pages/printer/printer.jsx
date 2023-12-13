@@ -85,7 +85,8 @@ export default function Printer() {
                                 diag.map((item, key) =>
                                     <li key={key} style={{marginBottom: '10px'}}>
                                         <b>{item.generic_name}</b>: {item.description}<br />
-                                        * <span style={{ color: 'red' }}>{item.instruction} with {item.water_quantity}ml of water, {item.times_perday} {item.times_perday == '1' ? "time" : "times"} per day</span>
+                                        <p>Additional medicines: {item.instruction}</p>
+                                        * <span style={{ color: 'red' }}>{item.extras} with {item.water_quantity} of water, {item.times_perday} {item.times_perday == '1' ? "time" : "times"} per day</span>
                                     </li>
                                 )
                             }

@@ -1,0 +1,19 @@
+.banner-image{
+    background-image: url("https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.banner-cover{
+    backdrop-filter: brightness(40%);
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.banner-cover span{
+    color: #1A76D1;
+}

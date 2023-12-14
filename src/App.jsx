@@ -23,11 +23,8 @@ import Medicines from "./pages/medicines/medicines";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#000E28'
+      main: '#006EBD'
     },
-    info: {
-      main: '#00C9F5'
-    }
   }
 })
 

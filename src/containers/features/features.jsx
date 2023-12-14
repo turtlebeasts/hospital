@@ -20,7 +20,7 @@ export default function Features() {
                         <img src={multi} alt="multi" /><Typography variant="h6" sx={{ fontWeight: 900 }}>Multiple<br />Specialists</Typography>
                     </Grid>
                     <Grid item style={style} xs={12} sm={4}>
-                        <img src={clock} alt="clock" /><Typography variant="h6" sx={{ fontWeight: 900 }}>27x7<br />Available</Typography>
+                        <img src={clock} alt="clock" /><Typography variant="h6" sx={{ fontWeight: 900 }}>24x7<br />Available</Typography>
                     </Grid>
                 </Grid>
             </div>

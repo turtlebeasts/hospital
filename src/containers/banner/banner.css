@@ -6,12 +6,13 @@
 }
 
 .banner-cover{
-    backdrop-filter: brightness(40%);
-    color: white;
+    background-color: rgba(255 , 255, 255, 0.5);
+    color: rgb(29, 29, 29);
     display: flex;
     justify-content: center;
     align-items: center;
     height: 50vh;
+    text-shadow: 1px 2px 2px black;
 }
 
 .banner-cover span{

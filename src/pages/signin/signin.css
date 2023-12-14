@@ -1,0 +1,19 @@
+.form{
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input{
+    width: 20vw;
+    height: 3rem;
+    border-radius: 20px;
+}
+
+.inputs{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}

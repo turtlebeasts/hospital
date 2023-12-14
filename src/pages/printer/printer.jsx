@@ -31,7 +31,7 @@ export default function Printer() {
                 <Typography variant="h5">NATURAL CANCER CARE CENTER</Typography>
                 <Typography variant="p">Vill - Nalani Kapahuwa, P.O- Dhaman (Tingkhong)</Typography><br/>
                 <Typography variant="p">Dist.- Dibrugarh (Assam), Pin code- 786610</Typography><br/>
-                <Typography variant="p"><b>Contact No.: 8011610990, 9678165454, 93944890</b></Typography><br/>
+                <Typography variant="p"><b>Contact No.: 8011610990, 9678165454, 9395344890</b></Typography><br/>
                 <Grid container sx={{ textAlign: 'left' }}>
                     <Grid item xs={4}>
                         <Typography variant="p"><b>Founder:</b></Typography><br/>

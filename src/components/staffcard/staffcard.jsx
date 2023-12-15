@@ -7,7 +7,7 @@ export default function StaffCard({image, name, designation}){
                 <Avatar 
                     alt={name}
                     src={image}
-                    sx={{width: '12rem', height: '12rem', margin: 'auto'}}
+                    sx={{width: {xs:'6rem',sm:'12rem'}, height: {xs:'6rem',sm:'12rem'}, margin: 'auto'}}
                 />
                 <Typography variant="h6" sx={{color: 'white'}}>
                     {name}

@@ -152,8 +152,28 @@ export default function SignIn() {
           backgroundPosition: 'center',
           backgroundSize: 'auto 100%',
           borderRadius: '15px 0 0 15px',
-          boxShadow: '10px 0px 30px 1px black'
-        }}></Grid>
+          boxShadow: '10px 0px 30px 1px black',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: 'column'
+        }}>
+          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#FFF', width: '100%'}}>
+            We provide
+          </Typography>
+          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#29FFBF', width: '100%'}}>
+            extensive
+          </Typography>
+          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#FFF', width: '100%'}}>
+            care for
+          </Typography>
+          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#FFF', width: '100%'}}>
+            all your
+          </Typography>
+          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#29FFBF', width: '100%'}}>
+            ailments
+          </Typography>
+        </Grid>
       </Grid>
     </ThemeProvider>
   );

@@ -153,7 +153,7 @@ export default function SignIn() {
           backgroundSize: 'auto 100%',
           borderRadius: '15px 0 0 15px',
           boxShadow: '10px 0px 30px 1px black',
-          display: 'flex',
+          display: {xs:'none',sm: 'flex'},
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column'

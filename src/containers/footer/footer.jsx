@@ -5,7 +5,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 
 export default function Footer() {
     return (
-        <Grid container spacing={2} sx={{ backgroundColor: '#252525', color: 'white', pt: '5rem' }}>
+        <Grid container id="footer" spacing={2} sx={{ backgroundColor: '#252525', color: 'white', pt: '5rem' }}>
             <Grid item xs={12}>
                 <Grid container maxWidth={"md"} sx={{ margin: 'auto' }}>
                     <Grid item xs={12} sm={4} sx={{ textAlign: {xs: 'center',sm: 'end'} }}>

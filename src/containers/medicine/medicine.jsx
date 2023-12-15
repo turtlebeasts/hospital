@@ -9,7 +9,7 @@ const colors = [
 
 export default function Medicine(){
     return(
-        <Grid container>
+        <Grid container id="Herbs">
             {
                 colors.map(item=>
                     <Grid item xs={12} md={3} key={item} sx={{width: '40%', height: '20vh', backgroundColor: item}}></Grid>

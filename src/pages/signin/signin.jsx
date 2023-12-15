@@ -70,15 +70,16 @@ export default function SignIn() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container sx={{ backgroundImage: 'url(https://images.unsplash.com/photo-1497449493050-aad1e7cad165?q=80&w=1065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)', backgroundSize: { xs: 'cover', sm: '50% 100%' }, height: '100vh' }}>
+      <Grid container sx={{ height: '100vh', }}>
         <Grid item xs={12} md={6} sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ p: 2 }}>
             <Card sx={{
+              boxShadow: '-10px 0px 30px 1px black',
               borderRadius: '30px',
-              color: 'white', backgroundImage: 'url(https://images.unsplash.com/photo-1567359781514-3b964e2b04d6?q=80&w=1136&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)', backgroundSize: 'cover', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
+              color: 'white', height: '70vh', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'
             }}>
               <CardContent>
-                <Typography variant='h3' style={{textAlign: 'center', fontWeight: 900}}>Login</Typography>
+                <Typography variant='h3' style={{ textAlign: 'center', fontWeight: 900 }}>Login</Typography>
                 <TextField
                   margin="normal"
                   required
@@ -87,7 +88,7 @@ export default function SignIn() {
                   label="Email Address"
                   name="email"
                   error={emailErr}
-                  helperText={emailErr?"Email is required":""}
+                  helperText={emailErr ? "Email is required" : ""}
                   inputProps={{
                     autoComplete: 'off',
                     form: {
@@ -95,8 +96,8 @@ export default function SignIn() {
                     }
                   }}
                   value={email}
-                  onClick={()=>setEmailErr(false)}
-                  onChange={(e)=>setEmail(e.target.value)}
+                  onClick={() => setEmailErr(false)}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <TextField
                   margin="normal"
@@ -107,7 +108,7 @@ export default function SignIn() {
                   type="password"
                   id="password"
                   error={passErr}
-                  helperText={passErr?"Password is required":""}
+                  helperText={passErr ? "Password is required" : ""}
                   inputProps={{
                     autoComplete: 'off',
                     form: {
@@ -115,10 +116,11 @@ export default function SignIn() {
                     }
                   }}
                   value={password}
-                  onClick={()=>setPassErr(false)}
-                  onChange={(e)=>setPass(e.target.value)}
+                  onClick={() => setPassErr(false)}
+                  onChange={(e) => setPass(e.target.value)}
                 />
                 <Select
+                  sx={{ mt: 2 }}
                   name="type"
                   label="Account Type"
                   value={type}
@@ -137,7 +139,7 @@ export default function SignIn() {
                     type="submit"
                     variant="contained"
                     color="info"
-                    sx={{ margin: 'auto', mt: 3, mb: 2, borderRadius: '15px' }}
+                    sx={{ margin: 'auto', mt: 3, mb: 2, pl: '2rem', pr: '2rem' }}
                   >
                     Sign In
                   </Button>
@@ -148,31 +150,17 @@ export default function SignIn() {
         </Grid>
         <Grid item xs={12} md={6} sx={{
           height: { xs: '0', sm: '100vh' },
-          backgroundImage: 'url(https://images.unsplash.com/photo-1504567961542-e24d9439a724?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)',
+          backgroundColor: 'white',
           backgroundPosition: 'center',
           backgroundSize: 'auto 100%',
           borderRadius: '15px 0 0 15px',
           boxShadow: '10px 0px 30px 1px black',
-          display: {xs:'none',sm: 'flex'},
+          display: { xs: 'none', sm: 'flex' },
           justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'column'
         }}>
-          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#FFF', width: '100%'}}>
-            We provide
-          </Typography>
-          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#29FFBF', width: '100%'}}>
-            extensive
-          </Typography>
-          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#FFF', width: '100%'}}>
-            care for
-          </Typography>
-          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#FFF', width: '100%'}}>
-            all your
-          </Typography>
-          <Typography variant="h1" sx={{fontWeight: 900, textShadow: '2px 0px 10px black', pl: 5, boxSizing: 'border-box', color: '#29FFBF', width: '100%'}}>
-            ailments
-          </Typography>
+          <img src='https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.dribbble.com%2Fusers%2F1946759%2Fscreenshots%2F4596801%2Fadmin.png&f=1&nofb=1&ipt=2dab34edc1bfadf95a88a398dbf145ec911a19a1c0eba880a86a747345874260&ipo=images' width={'80%'} style={{ borderRadius: '30px' }} />
         </Grid>
       </Grid>
     </ThemeProvider>

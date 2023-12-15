@@ -3,7 +3,7 @@ import "./banner.css"
 
 export default function Banner(){
     return(
-        <div className="banner-image">
+        <div id="Home" className="banner-image">
             <div className="banner-cover">
                 <Grid container maxWidth={"md"}>
                     <Grid item xs={12} md={6} sx={{textAlign: {xs: 'center', sm: 'left'}, display: {xs: 'flex',sm: 'block'}, flexDirection: 'column', justifyContent: {xs:'center', sm: 'left'}, alignItems: 'center'}}>

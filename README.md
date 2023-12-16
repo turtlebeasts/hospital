@@ -1,9 +1,3 @@
----
-runme:
-  id: 01HHRQ91QA9FFFG8BT9KBHQAHJ
-  version: v2.0
----
-
 # Natural Cancer Care Center
 
 Natural Cancer Care Center is a project for the team of individuals running private cancer care hospital, deamed to treat cancer and other lethal diseases with natural herbs and medicines under low cost treatment.

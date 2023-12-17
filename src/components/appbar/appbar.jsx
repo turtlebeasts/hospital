@@ -14,7 +14,6 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import nccc from "./ncccpng.png"
-import { HashLink } from 'react-router-hash-link';
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
@@ -102,7 +101,7 @@ function ResponsiveAppBar() {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} component={HashLink} smooth to={`/#${page}`} onClick={handleCloseNavMenu}>
+                <MenuItem key={page} component={Link} to={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
@@ -129,7 +128,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex', display: "flex", justifyContent: 'center', alignItems: 'center' } }}>
             {pages.map((page) => (
               <Button
-                component={HashLink} smooth to={`/#${page}`}
+                component={Link} to={page}
                 key={page}
                 onClick={handleCloseNavMenu}
                 sx={{ my: 2, color: 'black', display: 'block' }}

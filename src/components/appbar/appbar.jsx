@@ -27,7 +27,7 @@ function ResponsiveAppBar() {
   } else {
     display = 'block'
   }
-  const pages = user === null ? ['Home', 'About', 'Herbs', 'Staff'] : user.type == '1' || user.type == '3' ? ['Home', 'MedicineForm', 'Plist'] : ['Home', 'Plist']
+  const pages = user === null ? ['Home', 'About', 'Herbs', 'Staff'] : user.type == '1' || user.type == '3' ? ['Home', 'MedicineForm', 'Patient'] : ['Home', 'Patient']
   // const settings = ['Profile', 'Account', 'Dashboard'];
   const settings = ['Profile'];
 
@@ -52,7 +52,7 @@ function ResponsiveAppBar() {
   }
 
   return (
-    <AppBar position="fixed" sx={{ display: display, backgroundColor: 'white', color: 'black' }}>
+    <AppBar position={user===null?"fixed":"relative"} sx={{ display: display, backgroundColor: 'white', color: 'black', }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <img src={nccc} alt="nccc" style={{ width: '70px' }} />

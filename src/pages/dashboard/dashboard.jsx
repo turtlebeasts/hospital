@@ -293,11 +293,11 @@ export default function Dashboard() {
                                 <Typography component="p"
                                     sx={
                                         { mb: 2 }
-                                    }>Diagnosed disease</Typography>
+                                    }>Patient description</Typography>
                                 <TextField 
                                     fullWidth
                                     name="disease"
-                                    label="Diagnosed disease"
+                                    label="Patient description"
                                     type="text"
                                     id="address"
                                     autoComplete="" />

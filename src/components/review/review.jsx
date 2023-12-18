@@ -86,7 +86,10 @@ export default function Review() {
                                         <br />{item.review}
                                         <br />{item.status}
                                     </Typography>
-                                    <DeleteModalReview deleteID={item.review_ID} reload={setReload} />
+                                    {
+                                        user.type == 4 || user.type == 1 ?
+                                        <DeleteModalReview deleteID={item.review_ID} reload={setReload} />:""
+                                    }
                                 </div>
                             )
                         })

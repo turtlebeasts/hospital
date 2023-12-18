@@ -53,9 +53,9 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/home" element={<Dashboard />} />
-              <Route exact path="/plist" element={<Plist />} />
+              <Route exact path="/patient" element={<Plist />} />
               <Route exact path="/patient/:id" element={<Patient />} />
-              <Route path="/plist/:id" element={<DiagHome />} />
+              <Route path="/patient/:id" element={<DiagHome />} />
               <Route path="/prescribe/:id" element={<PrescribeHome />} />
               {
                 user.type == '1' || user.type == '3' ?

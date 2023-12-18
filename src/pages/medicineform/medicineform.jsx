@@ -155,7 +155,7 @@ const MedicineForm = () => {
         <Grid item xs={6}>
           <TextField
             fullWidth
-            label="Generic Name"
+            label="Name in Assamese"
             name="generic_name"
             value={medicineData.generic_name}
             onChange={handleInputChange}

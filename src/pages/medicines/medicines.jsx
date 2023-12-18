@@ -129,7 +129,7 @@ export default function Medicines() {
                                 return (
                                     <Card key={key} sx={{ mb: 2 }}>
                                         <CardContent>
-                                            <Typography><b>{item.name}</b> {item.dosage_name}: mix {item.quantity} with {item.mwith}, {item.times_perday} times per day</Typography>
+                                            <Typography><b>{item.name}</b> {item.dosage_name}: mix {item.water_quantity} with {item.mwith}, {item.times_perday} times per day</Typography>
                                             <Typography>Instruction: {item.instruction}</Typography>
                                             {item.extras !== "" && <hr />}
                                             {item.extras !== "" && <Typography><b>Extra medicines</b></Typography>}

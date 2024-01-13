@@ -1,5 +1,6 @@
 import { Button, Grid, Typography } from "@mui/material";
 import "./banner.css"
+import { HashLink } from "react-router-hash-link";
 
 export default function Banner(){
     return(
@@ -10,7 +11,7 @@ export default function Banner(){
                         <Typography variant="h3" sx={{fontWeight: 900, width: '96%'}}>We provide</Typography>
                         <Typography variant="h3" sx={{fontWeight: 900, width: '96%'}}><span>extensive</span> care</Typography>
                         <Typography variant="h3" sx={{fontWeight: 900, width: '96%'}}>for all your <span>ailments</span></Typography>
-                        <Button variant="contained" color="primary">CONTACT US</Button>
+                        <Button variant="contained" color="primary" component={HashLink} smooth to="#contact">CONTACT US</Button>
                     </Grid>
                     <Grid item xs={12} md={6}></Grid>
                 </Grid>

@@ -73,7 +73,7 @@ export default function Dashboard() {
         }).then(res => res.text()).then(data => {
             if (data == 300) {
                 alert("Insert successful")
-                navigate('/plist')
+                navigate('/patient')
                 return null
             } else if (data == 200) {
                 alert('Registration Number already exist')

@@ -20,6 +20,7 @@ import MaleIcon from '@mui/icons-material/Male';
 import FemaleIcon from '@mui/icons-material/Female';
 import TransgenderIcon from '@mui/icons-material/Transgender';
 import Paginations from '../../components/paginations/paginations';
+import SearchBar from '../../components/searchbar/searchbar';
 
 const user = JSON.parse(sessionStorage.getItem('user'))
 
@@ -34,11 +35,13 @@ export default function Plist() {
   const [dead, setdead] = React.useState(0)
   const [page, setPage] = React.useState(0)
   const [pageCount, setPageCount] = React.useState(1)
+  const [total, setTotal] = React.useState(0)
 
   const [curedLoad, setCuredLoad] = React.useState(true)
   const [circumLoad, setCircumLoad] = React.useState(true)
   const [leftLoad, setleftLoad] = React.useState(true)
   const [deadLoad, setdeadLoad] = React.useState(true)
+  const [totalLoad, setTotalLoad] = React.useState(true)
 
   React.useEffect(() => {
     async function getData() {
@@ -77,6 +80,13 @@ export default function Plist() {
       const result = await response.json()
       setPageCount(result)
     }
+    async function getTotal() {
+      const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/plist.php?counts=`);
+      const result = await response.json()
+      setTotal(result)
+      setTotalLoad(false)
+    }
+    getTotal()
     getCount()
     getdead()
     getLefttreat()
@@ -124,7 +134,7 @@ export default function Plist() {
         <Grid item xs={12} sx={{ pr: 1 }}>
           <Card>
             <CardContent>
-              <Typography variant="h6">Total Patient: {dataLoad ? <CircularProgress color="primary" size={15} /> : data.length}</Typography>
+              <Typography variant="h6">Total Patient: {totalLoad ? <CircularProgress color="primary" size={15} /> : total}</Typography>
               <Typography variant="h6">Patient cured: {curedLoad ? <CircularProgress color="primary" size={15} /> : cured}</Typography>
               <Typography variant="h6">Under circumstances: {circumLoad ? <CircularProgress color="primary" size={15} /> : circum}</Typography>
               <Typography variant="h6">Left treatment: {leftLoad ? <CircularProgress color="primary" size={15} /> : left}</Typography>
@@ -132,10 +142,11 @@ export default function Plist() {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs={12} md={4} sx={{ mt: 2 }}>
+        <Grid item xs={12} md={6} sx={{ mt: 2 }}>
           <Card>
             <CardContent>
-              <TextField onChange={handleSearch} label="Search record" />
+              {/* <TextField onChange={handleSearch} label="Search record" /> */}
+              <SearchBar setData={setData} setReload={setReload}/>
             </CardContent>
           </Card>
         </Grid>

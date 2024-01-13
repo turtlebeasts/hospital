@@ -40,7 +40,7 @@ export default function Intro() {
                                         <td>09:00 AM to 03:00 PM</td>
                                     </tr>
                                     <tr>
-                                        <td>Saturday</td>
+                                        <td>Sunday</td>
                                         <td>09:00 AM to 03:00 PM</td>
                                     </tr>
                                 </tbody>

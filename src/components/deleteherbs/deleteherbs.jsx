@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton } from '@mui/material';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Grid, IconButton } from '@mui/material';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import { Link } from '@mui/material';
 
@@ -24,7 +24,7 @@ const DeleteConfirmationModal = ({ open, onClose, onConfirm }) => {
   );
 };
 
-const DeleteMedia = ({ itemfile, ind, deleteID, reload, page }) => {
+const DeleteHerbs = ({ photoID, deleteID, reload, page }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleDelete = () => {
@@ -32,7 +32,7 @@ const DeleteMedia = ({ itemfile, ind, deleteID, reload, page }) => {
   };
 
   const handleConfirmDelete = async () => {
-    const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/${page}.php?id=${deleteID}`)
+    const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/${page}.php?del_id=${deleteID}`)
     const result = await response.json()
     if (result === 200) {
       reload(true)
@@ -48,8 +48,7 @@ const DeleteMedia = ({ itemfile, ind, deleteID, reload, page }) => {
   };
 
   return (
-    <div>
-      <Link href={itemfile} target="_blank" download>Attachment{ind}</Link>
+    <>
       <IconButton variant="contained" color="error" onClick={handleDelete}>
         <DeleteForeverIcon />
       </IconButton>
@@ -58,8 +57,8 @@ const DeleteMedia = ({ itemfile, ind, deleteID, reload, page }) => {
         onClose={handleModalClose}
         onConfirm={handleConfirmDelete}
       />
-    </div>
+    </>
   );
 };
 
-export default DeleteMedia;
+export default DeleteHerbs;

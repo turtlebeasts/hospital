@@ -82,7 +82,7 @@ export default function PatientCard() {
               : detail.map((item, key) => {
                 return (
                   <div style={{ textAlign: 'center' }} key={key}>
-                    <DeleteMedia itemfile={item.file} ind={key + 1} deleteID={item.photo_ID} reload={setReload} />
+                    <DeleteMedia itemfile={item.file} ind={key + 1} deleteID={item.photo_ID} reload={setReload} page={"mediadelete"} />
                   </div>
                 )
               })

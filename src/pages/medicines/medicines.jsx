@@ -103,14 +103,14 @@ export default function Medicines() {
 
     const handleDeletefromdb = async (pres_ID) => {
         fetch(`${import.meta.env.VITE_SITENAME}/hospital/prescribe.php?delete=${pres_ID}`)
-        .then(res=>res.text())
-        .then(data=>{
-            if(data==200){
-                setReload(true)
-            }else{
-                alert("Error deleting")
-            }
-        })
+            .then(res => res.text())
+            .then(data => {
+                if (data == 200) {
+                    setReload(true)
+                } else {
+                    alert("Error deleting")
+                }
+            })
     }
     return (
         <Grid container spacing={2} sx={{ mt: 2, p: 2 }}>
@@ -144,10 +144,10 @@ export default function Medicines() {
                             })
                         }
                         {
-                            presciptions.length==0 && !reload?<Typography>No prescriptions added</Typography>:""
+                            presciptions.length == 0 && !reload ? <Typography>No prescriptions added</Typography> : ""
                         }
                         {
-                            reload?<><LinearProgress /><Typography variant="h6">Loading prescriptions</Typography></>:""
+                            reload ? <><LinearProgress /><Typography variant="h6">Loading prescriptions</Typography></> : ""
                         }
                     </CardContent>
                 </Card>
@@ -182,18 +182,11 @@ export default function Medicines() {
                         {selectedMedicines.map((medicine, index) => (
                             <div key={index} style={{ display: 'flex', alignItems: 'center', marginTop: '10px' }}>
                                 <FormControl fullWidth>
-                                    <InputLabel>Select Medicine</InputLabel>
-                                    <Select
+                                    <TextField
                                         value={medicine}
-                                        label="Select Medicine"
+                                        label="Extra medicine"
                                         onChange={(e) => handleMedicineChange(index, e.target.value)}
-                                    >
-                                        {
-                                            med.map((item, key) =>
-                                                <MenuItem value={item.name} key={key}>{item.generic_name}</MenuItem>
-                                            )
-                                        }
-                                    </Select>
+                                    />
                                 </FormControl>
                                 <IconButton onClick={() => handleRemoveMedicine(index)}>
                                     <DeleteForeverIcon color="error" />

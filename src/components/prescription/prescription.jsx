@@ -22,8 +22,10 @@ export default function Prescription( {diag_ID, reload} ){
 			pres.map((item)=>{
 				return(
 					<Grid item xs={12} key={item.pres_ID}>
-						<Typography variant="p">{item.name}({item.generic_name}) with {item.water_quantity} cup of water {item.times_perday} times per day, {item.description}</Typography><br/>
+						<Typography variant="p">{item.name}({item.generic_name}) {item.water_quantity} with {item.mwith}, {item.times_perday} times per day, {item.description}</Typography><br/>
 						<Typography variant="p"><b>Instruction:</b> {item.instruction}</Typography>
+						<Typography variant="h6">Extra medicine</Typography>
+						<Typography variant="p">{item.extras}</Typography>
 					</Grid>
 					)
 			})

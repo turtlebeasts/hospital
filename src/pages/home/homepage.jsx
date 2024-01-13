@@ -9,6 +9,7 @@ import Services from "../../containers/services/services"
 import Backstage from "../../containers/backstage/backstage"
 import EverReady from "../../containers/everready/everready"
 import Footer from "../../containers/footer/footer"
+import Testimonials from "../../containers/testimonials/testimonials"
 
 export default function Homepage(){
     return(
@@ -21,7 +22,8 @@ export default function Homepage(){
                 <About />
                 <Medicine />
                 <Services />
-                <Backstage />
+                <Testimonials />
+                {/* <Backstage /> */}
                 <EverReady />
                 <Footer />
             </Grid>

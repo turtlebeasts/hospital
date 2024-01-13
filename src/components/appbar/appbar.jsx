@@ -27,7 +27,7 @@ function ResponsiveAppBar() {
   } else {
     display = 'block'
   }
-  const pages = user === null ? ['Home', 'About', 'Herbs', 'Staff'] : user.type == '1' || user.type == '3' ? ['Home', 'MedicineForm', 'Patient'] : ['Home', 'Patient']
+  const pages = user === null ? ['Home', 'About', 'Herbs'] : user.type == '1' || user.type == '3' ? ['EntryForm', 'MedicineForm', 'Patient'] : user.type =='6'? ['Herbs', 'Testimonials']: ['EntryForm', 'Patient']
   // const settings = ['Profile', 'Account', 'Dashboard'];
   const settings = ['Profile'];
 

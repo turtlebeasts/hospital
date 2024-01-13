@@ -1,13 +1,9 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
 import Select from "@mui/material/Select"
 import MenuItem from "@mui/material/MenuItem"
 import { Card, CardContent, ThemeProvider, createTheme } from '@mui/material';
@@ -22,7 +18,11 @@ export default function SignIn() {
   const [passErr, setPassErr] = React.useState(false)
 
   React.useEffect(() => {
-    const user = sessionStorage.getItem('user')
+    const user = JSON.parse(sessionStorage.getItem('user'))
+    if(user !== null && user.type==6){
+      window.location.href = "/herbs"
+      return
+    }
     if (user !== null) {
       window.location.href = "/"
     }
@@ -133,6 +133,7 @@ export default function SignIn() {
                   <MenuItem value="3">Doctor (Medicine)</MenuItem>
                   <MenuItem value="4">Reviewer</MenuItem>
                   <MenuItem value="5">Reception</MenuItem>
+                  <MenuItem value="6">Media</MenuItem>
                 </Select>
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                   <Button

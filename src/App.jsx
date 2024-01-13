@@ -18,6 +18,8 @@ import "./App.css"
 import { ThemeProvider, createTheme } from "@mui/material";
 import Printer from "./pages/printer/printer";
 import Medicines from "./pages/medicines/medicines";
+import MediaDashboard from "./pages/mediadashboard/mediadashboard";
+import Testimonials from "./pages/testimonials/testimonials";
 
 
 const theme = createTheme({
@@ -52,7 +54,7 @@ function App() {
             :
             <Routes>
               <Route path="/" element={<Dashboard />} />
-              <Route path="/home" element={<Dashboard />} />
+              <Route path="/entryform" element={<Dashboard />} />
               <Route exact path="/patient" element={<Plist />} />
               <Route exact path="/patient/:id" element={<Patient />} />
               <Route path="/patient/:id" element={<DiagHome />} />
@@ -69,6 +71,8 @@ function App() {
               }
               <Route path="/print/:userid/:diagnosis" element={<Printer />}/>
               <Route path="/signin" element={<SignIn />} />
+              <Route path="/herbs" element={<MediaDashboard />} />
+              <Route path="/testimonials" element={<Testimonials />} />
               <Route path="*" element={<Notfound />} />
             </Routes>
         }

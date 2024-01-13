@@ -20,10 +20,10 @@ export default function Printer() {
             const result = await response.json()
             setDetail(result[0])
             // console.log(result)
+            setTimeout(()=>window.print(),1000)
         }
         diagnose(diagnosis)
         patient(userid)
-        setTimeout(()=>window.print(),1000)
     }, [])
     return (
         <Grid container spacing={2} sx={{ padding: 2 }}>
@@ -84,9 +84,10 @@ export default function Printer() {
                             {
                                 diag.map((item, key) =>
                                     <li key={key} style={{marginBottom: '10px'}}>
-                                        <b>{item.generic_name}</b>: {item.description}<br />
+                                        <b>{item.generic_name}({item.name})</b>: {item.description}<br />
                                         <p>Additional medicines: {item.instruction}</p>
-                                        * <span style={{ color: 'red' }}>{item.extras} with {item.water_quantity} of water, {item.times_perday} {item.times_perday == '1' ? "time" : "times"} per day</span>
+                                        * <span style={{ color: 'red' }}>take ({item.water_quantity}) with {item.mwith}, {item.times_perday} {item.times_perday == '1' ? "time" : "times"} per day</span>
+                                        <p><b>Instruction:</b> {item.extras}</p>
                                     </li>
                                 )
                             }

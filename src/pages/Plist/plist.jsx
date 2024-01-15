@@ -188,7 +188,7 @@ export default function Plist() {
                                 user.type == 2 || user.type == 1 ?
                                   <Button
                                     component={Link}
-                                    to={row.patient_ID}
+                                    to={`/diag/${row.patient_ID}`}
                                     variant="contained"
                                     startIcon={<TroubleshootIcon />}
                                   >
@@ -265,7 +265,7 @@ export default function Plist() {
                                 user.type == 2 || user.type == 1 ?
                                   <Button
                                     component={Link}
-                                    to={row.patient_ID}
+                                    to={`/diag/${row.patient_ID}`}
                                     variant="contained"
                                   >
                                     Diagnose

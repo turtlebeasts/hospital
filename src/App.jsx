@@ -57,7 +57,7 @@ function App() {
               <Route path="/entryform" element={<Dashboard />} />
               <Route exact path="/patient" element={<Plist />} />
               <Route exact path="/patient/:id" element={<Patient />} />
-              <Route path="/patient/:id" element={<DiagHome />} />
+              <Route path="/diag/:id" element={<DiagHome />} />
               <Route path="/prescribe/:id" element={<PrescribeHome />} />
               {
                 user.type == '1' || user.type == '3' ?

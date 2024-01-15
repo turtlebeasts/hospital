@@ -13,7 +13,7 @@ export default function Printer() {
             const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/diag.php?diagid=${diagnosis}`)
             const result = await response.json()
             setDiag(result)
-            // console.log(result)
+            console.log(result)
         }
         async function patient(userid) {
             const response = await fetch(`${import.meta.env.VITE_SITENAME}/hospital/index.php?getDetail=${userid}`)

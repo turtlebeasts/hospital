@@ -45,8 +45,10 @@ export default function Services() {
                 <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                     <Grid container maxWidth={"md"} spacing={2} sx={{ mt: '4rem' }}>
                         {cancers.map(item =>
-                            <Grid key={item.name} item xs={6} md={4} sx={{ height: '8rem', textAlign: 'center' }}>
-                                <img src={item.image}/>
+                            <Grid key={item.name} item xs={6} md={4} sx={{ display: 'flex', flexDirection: 'column', height: '8rem', textAlign: 'center', justifyContent: 'end' }}>
+                                <div>
+                                    <img src={item.image} />
+                                </div>
                                 <Typography variant="h6">
                                     {item.name} cancer
                                 </Typography>

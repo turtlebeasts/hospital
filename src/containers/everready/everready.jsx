@@ -9,9 +9,9 @@ export default function EverReady(){
             <Grid item xs={12}>
                 <Typography variant="h3">Ever ready to serve you</Typography>
                 <Typography variant="h5">Feel free to contact us</Typography>
-                <Typography variant="h6" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><CallIcon fontSize="large"/> 9678165464, 9395344890</Typography>
-                <Typography variant="h6" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18}}><EmailIcon fontSize="large"/> naturalcancercarecentre@gmail.com</Typography>
-                <Typography variant="h6" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18}}><LocationOnIcon fontSize="large"/> Dhaman Tingkhong, Dibrugarh, Assam</Typography>
+                <Typography variant="h6" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}><CallIcon fontSize="small"/> 9678165464, 9395344890</Typography>
+                <Typography variant="h6" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18}}><EmailIcon fontSize="small"/> naturalcancercarecentre@gmail.com</Typography>
+                <Typography variant="h6" sx={{display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18}}><LocationOnIcon fontSize="small"/> Dhaman Tingkhong, Dibrugarh, Assam</Typography>
             </Grid>
         </Grid>
     )
